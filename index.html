@@ -1,1222 +1,976 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Espaço Conecta VG | Portal de Apoio ao Estudante</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Espaço Conecta Visconde</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-light: #3b82f6;
+      --secondary: #0d9488;
+      --accent: #f59e0b;
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --radius: 16px;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* --- NAVEGAÇÃO SUPERIOR --- */
+    header {
+      background: linear-gradient(135deg, var(--primary), #1e1b4b);
+      color: white;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .logo i {
+      color: var(--accent);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #e2e8f0;
+      text-decoration: none;
+      padding: 0.6rem 1.1rem;
+      border-radius: 20px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+
+    nav a:hover, nav a.active {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    /* --- ÁREA DE CONTEÚDO (SPA) --- */
+    main {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      flex: 1;
+      width: 100%;
+    }
+
+    .page-section {
+      display: none;
+      animation: fadeIn 0.4s ease-in-out forwards;
+    }
+
+    .page-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --- CARROSSEL --- */
+    .carousel-container {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      margin-bottom: 2.5rem;
+      max-height: 420px;
+      background-color: #000;
+    }
+
+    .carousel-slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      height: 420px;
+    }
+
+    .slide {
+      min-width: 100%;
+      position: relative;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.75);
+    }
+
+    .slide-caption {
+      position: absolute;
+      bottom: 2rem;
+      left: 2rem;
+      right: 2rem;
+      color: white;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(4px);
+      padding: 1.2rem;
+      border-radius: 12px;
+      border-left: 4px solid var(--accent);
+    }
+
+    .slide-caption h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(4px);
+      border: none;
+      color: white;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: 0.3s;
+    }
+
+    .carousel-btn:hover {
+      background: rgba(255, 255, 255, 0.8);
+      color: var(--primary);
+    }
+
+    .carousel-btn.prev { left: 1rem; }
+    .carousel-btn.next { right: 1rem; }
+
+    /* --- CARDS E SÇÕES --- */
+    .section-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .section-header h2 {
+      color: var(--primary);
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      box-shadow: var(--shadow);
+      border: 1px solid #e2e8f0;
+      transition: transform 0.3s ease;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .verse-card {
+      background: linear-gradient(135deg, #ffffff, #f0fdf4);
+      border-left: 5px solid var(--secondary);
+    }
+
+    .verse-card i.quote-icon {
+      font-size: 2rem;
+      color: var(--secondary);
+      opacity: 0.3;
+      position: absolute;
+      top: 1.2rem;
+      right: 1.2rem;
+    }
+
+    .verse-title {
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .verse-text {
+      font-style: italic;
+      color: #334155;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .verse-ref {
+      font-weight: 600;
+      color: var(--secondary);
+      text-align: right;
+      font-size: 0.9rem;
+    }
+
+    /* --- PÁGINA REDE DE APOIO --- */
+    .support-group {
+      margin-bottom: 2rem;
+    }
+
+    .support-group h3 {
+      color: var(--primary);
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .person-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--card-bg);
+      padding: 1.2rem;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      border: 1px solid #e2e8f0;
+    }
+
+    .person-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+
+    .person-info h4 {
+      color: var(--text-main);
+      font-size: 1.1rem;
+    }
+
+    .person-info p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .banner-support {
+      background: linear-gradient(135deg, #eff6ff, #dbeafe);
+      border: 1px solid #bfdbfe;
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .banner-support h3 {
+      color: var(--primary);
+      margin-bottom: 0.8rem;
+    }
+
+    /* --- PÁGINA POMODORO --- */
+    .pomodoro-box {
+      background: var(--card-bg);
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 2.5rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .timer-display {
+      font-size: 4.5rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin: 1.5rem 0;
+      font-family: monospace;
+    }
+
+    .timer-modes {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .mode-btn {
+      padding: 0.5rem 1rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 20px;
+      background: transparent;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: 0.3s;
+    }
+
+    .mode-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .controls-btn {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .btn {
+      padding: 0.8rem 1.8rem;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover {
+      background: #cbd5e1;
+    }
+
+    /* --- PÁGINA PLANO DE ESTUDOS --- */
+    .routine-form {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text-main);
+    }
+
+    .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.95rem;
+    }
+
+    .plan-result {
+      display: none;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .plan-result.active {
+      display: block;
+    }
+
+    .plan-result h3 {
+      color: var(--secondary);
+      margin-bottom: 1rem;
+    }
+
+    .schedule-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.8rem 0;
+      border-bottom: 1px dashed #cbd5e1;
+    }
+
+    /* --- PÁGINA FUNDOS SONOROS --- */
+    .sound-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .sound-card {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: var(--radius);
+      text-align: center;
+      box-shadow: var(--shadow);
+      border: 1px solid #e2e8f0;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .sound-card:hover {
+      border-color: var(--primary-light);
+    }
+
+    .sound-card.playing {
+      background: #eff6ff;
+      border-color: var(--primary-light);
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+    }
+
+    .sound-icon {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    /* --- RODAPÉ --- */
+    footer {
+      background: #0f172a;
+      color: #94a3b8;
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: auto;
+      font-size: 0.9rem;
+    }
+
+    footer span {
+      color: #f1f5f9;
+      font-weight: 600;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- ACESSIBILIDADE E CONTROLES (Modo Escuro, Alto Contraste, Fonte) -->
-    <div class="accessibility-bar">
-        <div class="container accessibility-inner">
-            <span class="access-label">♿ Acessibilidade & Ajustes:</span>
-            <div class="access-buttons">
-                <button id="btn-font-increase" class="access-btn" title="Aumentar Fonte">A+</button>
-                <button id="btn-font-decrease" class="access-btn" title="Diminuir Fonte">A-</button>
-                <button id="btn-font-reset" class="access-btn" title="Tamanho Normal">A</button>
-                <button id="btn-contrast" class="access-btn" title="Alto Contraste">◐ Alto Contraste</button>
-                <button id="btn-dark-mode" class="access-btn" title="Modo Escuro">🌙 Modo Escuro</button>
-            </div>
-        </div>
+  <!-- NAVEGAÇÃO -->
+  <header>
+    <div class="nav-container">
+      <div class="logo">
+        <i class="fa-solid fa-hands-holding-child"></i>
+        <span>Espaço Conecta Visconde</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a class="nav-link active" onclick="switchPage('home')"><i class="fa-solid fa-house"></i> Início</a></li>
+          <li><a class="nav-link" onclick="switchPage('apoio')"><i class="fa-solid fa-users-gear"></i> Rede de Apoio</a></li>
+          <li><a class="nav-link" onclick="switchPage('pomodoro')"><i class="fa-solid fa-clock"></i> Técnica Pomodoro</a></li>
+          <li><a class="nav-link" onclick="switchPage('plano')"><i class="fa-solid fa-calendar-check"></i> Plano de Estudos</a></li>
+          <li><a class="nav-link" onclick="switchPage('sons')"><i class="fa-solid fa-headphones"></i> Fundos Sonoros</a></li>
+        </ul>
+      </nav>
     </div>
+  </header>
 
-    <!-- HEADER & MENU DE NAVEGAÇÃO FUNCIONAL -->
-    <header>
-        <div class="container">
-            <nav class="nav-inner">
-                <a href="#inicio" class="logo">
-                    <div class="logo-icon">🍃</div>
-                    Espaço Conecta VG
-                </a>
-                <ul class="nav-links">
-                    <li><a href="#inicio">Início</a></li>
-                    <li><a href="#escuta">Portal de Escuta</a></li>
-                    <li><a href="#quizzes">Quizzes & Teste</a></li>
-                    <li><a href="#referencias">Referências</a></li>
-                </ul>
-                <a href="#escuta" class="btn btn-lime">Precisa Falar? 💚</a>
-            </nav>
+  <main>
+    <!-- 1. PÁGINA INICIAL (HOME) -->
+    <section id="home" class="page-section active">
+      <!-- Carrossel do Colégio Visconde -->
+      <div class="carousel-container">
+        <div class="carousel-slides" id="carouselSlides">
+          <div class="slide">
+            <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1200&auto=format&fit=crop" alt="Colégio Visconde de Guarapuava - Entrada">
+            <div class="slide-caption">
+              <h3>Colégio Estadual Visconde de Guarapuava</h3>
+              <p>Tradição, acolhimento e compromisso com o futuro de nossos estudantes.</p>
+            </div>
+          </div>
+          <div class="slide">
+            <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1200&auto=format&fit=crop" alt="Ambiente Escolar Acolhedor">
+            <div class="slide-caption">
+              <h3>Um Lugar de Acolhimento e Crescimento</h3>
+              <p>Aqui você não está sozinho. Temos uma equipe de braços abertos para te ouvir.</p>
+            </div>
+          </div>
+          <div class="slide">
+            <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=1200&auto=format&fit=crop" alt="Espaço de Estudos">
+            <div class="slide-caption">
+              <h3>Construindo Caminhos para o Sucesso</h3>
+              <p>Desenvolva seu potencial com ferramentas de estudos e apoio emocional diário.</p>
+            </div>
+          </div>
         </div>
-    </header>
+        <button class="carousel-btn prev" onclick="moveSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="carousel-btn next" onclick="moveSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
 
-    <main class="container">
+      <div class="section-header">
+        <h2>Você Nunca Está Sozinho! ❤️</h2>
+        <p>Independentemente do desafio ou momento que você esteja enfrentando, lembre-se: há sempre um Deus de amor te esperando de braços abertos.</p>
+      </div>
 
-        <!-- 1. PÁGINA INICIAL (Hero + Carrossel de Imagens Acolhedoras) -->
-        <section id="inicio" class="hero section-padding">
-            <div class="hero-grid">
-                <div class="hero-card">
-                    <div class="badge">
-                        <span class="badge-dot"></span>
-                        Tema: Saúde Emocional no Ambiente Escolar
-                    </div>
-                    <h1 class="hero-title">Portal de Apoio ao Estudante <span>Visconde de Guarapuava</span></h1>
-                    <p class="hero-subtitle">Bem-vindo ao Portal de Apoio ao Estudante. Aqui você encontrará informações, orientações, acolhimento e escuta sobre situações vivenciadas no ambiente escolar. Respira, você não precisa carregar tudo sozinho(a)!</p>
-                    <div class="hero-actions">
-                        <a href="#escuta" class="btn btn-lime">Portal de Escuta 💬</a>
-                        <a href="#quizzes" class="btn btn-sage">Fazer Testes & Quiz 🧠</a>
-                    </div>
-                </div>
-
-                <!-- CARROSSEL DE IMAGENS -->
-                <div class="carousel-card">
-                    <div class="carousel">
-                        <div class="carousel-slides" id="carouselSlides">
-                            <div class="slide active">
-                                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80" alt="Estudantes sorrindo juntos no ambiente escolar">
-                                <div class="slide-caption">Acolhimento e Empatia na Escola</div>
-                            </div>
-                            <div class="slide">
-                                <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80" alt="Jovem em momento de calma e respiração ao ar livre">
-                                <div class="slide-caption">Sua Saúde Emocional em Primeiro Lugar</div>
-                            </div>
-                            <div class="slide">
-                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" alt="Professora conversando e apoiando estudante">
-                                <div class="slide-caption">Sempre Há Alguém Pronto para Te Ouvir</div>
-                            </div>
-                        </div>
-                        <button class="carousel-btn prev" id="prevSlide">❮</button>
-                        <button class="carousel-btn next" id="nextSlide">❯</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 2. PORTAL DE ESCUTA -->
-        <section id="escuta" class="section-padding">
-            <div class="section-header">
-                <span class="section-badge">💬 Espaço Seguro</span>
-                <h2 class="section-title">Portal de Escuta</h2>
-                <p class="section-desc">Um lugar para você colocar para fora o que está sentindo. Este formulário é uma <strong>simulação</strong> e nenhuma informação é armazenada.</p>
-            </div>
-
-            <div class="escuta-grid">
-                <!-- FORMULÁRIO SIMULADO -->
-                <div class="bento-card">
-                    <h3 class="card-title">Espaço para Desabafo (Simulado)</h3>
-                    <form id="form-desabafo">
-                        <div class="form-group">
-                            <label for="nome">Como prefere ser chamado(a)? (Opcional/Pseudônimo):</label>
-                            <input type="text" id="nome" placeholder="Ex: Aluno do 2º Ano, Amigo, etc." class="form-input">
-                        </div>
-                        <div class="form-group">
-                            <label for="desabafo">Escreva aqui seu desabafo ou como está se sentindo hoje:</label>
-                            <textarea id="desabafo" rows="5" placeholder="Pode escrever livremente... Este é um espaço seguro." class="form-input" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-lime width-100">Enviar Desabafo ✨</button>
-                    </form>
-                    
-                    <!-- Mensagem Automática JS -->
-                    <div id="mensagem-acolhimento" class="mensagem-acolhimento hidden"></div>
-                </div>
-
-                <!-- PAINEL DE ORIENTAÇÕES E MENSAGENS MOTIVACIONAIS -->
-                <div class="bento-card accent-sage">
-                    <h3 class="card-title">🤝 Onde Encontrar Ajuda Real?</h3>
-                    <p class="card-text">Lembre-se: desabafar no portal é um bom começo, mas buscar apoio no mundo real transforma as coisas. Quando precisar, procure:</p>
-                    <ul class="orientacoes-lista">
-                        <li>🏫 <strong>Pedagogia e Direção:</strong> A equipe do Colégio Visconde de Guarapuava está pronta para te ouvir sem julgamentos.</li>
-                        <li>👨‍🏫 <strong>Professores de Confiança:</strong> Aquele professor que te transmite segurança pode ser uma ponte de apoio.</li>
-                        <li>🏡 <strong>Familiares ou Adultos de Confiança:</strong> Parentes ou responsáveis que querem o seu bem.</li>
-                        <li>📞 <strong>CVV (Centro de Valorização da Vida):</strong> Ligue <strong>188</strong> (Gratuito, 24h e anônimo).</li>
-                    </ul>
-
-                    <div class="frase-motivacional-box">
-                        <div class="quote-icon">“</div>
-                        <p id="frase-motivacional">Você é mais forte do que imagina e não precisa passar por nada disso sozinho(a).</p>
-                        <button id="btn-nova-frase" class="btn btn-sage-sm">Outra Mensagem ✨</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 3. QUIZZES INTERATIVOS E TESTE DE SAÚDE MENTAL -->
-        <section id="quizzes" class="section-padding">
-            <div class="section-header">
-                <span class="section-badge">🧠 Interatividade</span>
-                <h2 class="section-title">Quizzes e Teste de Autoavaliação</h2>
-                <p class="section-desc">Testes dinâmicos desenvolvidos em JavaScript para autoconhecimento e aprendizado.</p>
-            </div>
-
-            <!-- TABS DE NAVEGAÇÃO DOS QUIZZES -->
-            <div class="quiz-tabs">
-                <button class="quiz-tab-btn active" data-tab="quiz1"> Quiz 1: Boa Saúde Mental (5 Perguntas)</button>
-                <button class="quiz-tab-btn" data-tab="quiz2"> Quiz 2: Sinais de Alerta (5 Perguntas)</button>
-                <button class="quiz-tab-btn" data-tab="teste">📊 Teste: Mapeamento Emocional (%)</button>
-            </div>
-
-            <!-- QUIZ 1: COMO TER UMA BOA SAÚDE MENTAL -->
-            <div id="quiz1" class="quiz-content active bento-card">
-                <h3 class="card-title">Quiz: Como manter uma boa saúde mental?</h3>
-                <p class="card-text">Responda às 5 perguntas abaixo para testar seus conhecimentos sobre hábitos saudáveis.</p>
-                <form id="form-quiz1" class="quiz-form">
-                    <!-- Gerado via JS ou Renderizado -->
-                    <div class="quiz-question">
-                        <p class="q-title">1. Qual destas atitudes contribui positivamente para o equilíbrio emocional?</p>
-                        <label><input type="radio" name="q1_1" value="a"> Guardar todos os sentimentos e nunca conversar com ninguém.</label>
-                        <label><input type="radio" name="q1_1" value="b"> Praticar atividades físicas, ter boa noite de sono e conversar sobre o que sente.</label>
-                        <label><input type="radio" name="q1_1" value="c"> Estudar sem fazer pausas até o exaustão total.</label>
-                    </div>
-                    <div class="quiz-question">
-                        <p class="q-title">2. Como agir quando os estudos e tarefas da escola parecem sobrecarregados?</p>
-                        <label><input type="radio" name="q1_2" value="a"> Fazer um cronograma com pausas (como a técnica Pomodoro) e pedir ajuda.</label>
-                        <label><input type="radio" name="q1_2" value="b"> Deixar tudo para a última hora e virar a noite acordado.</label>
-                        <label><input type="radio" name="q1_2" value="c"> Desistir das matérias e isolar-se dos colegas.</label>
-                    </div>
-                    <div class="quiz-question">
-                        <p class="q-title">3. O uso excessivo das redes sociais até tarde da noite afeta a saúde mental porque:</p>
-                        <label><input type="radio" name="q1_3" value="a"> Não afeta em nada, é totalmente benéfico.</label>
-                        <label><input type="radio" name="q1_3" value="b"> Prejudica o sono, aumenta a comparação social e estimula a ansiedade.</label>
-                        <label><input type="radio" name="q1_3" value="c"> Substitui completamente a necessidade de convivência presencial.</label>
-                    </div>
-                    <div class="quiz-question">
-                        <p class="q-title">4. Demonstrar empatia e acolher um colega que está triste na escola é:</p>
-                        <label><input type="radio" name="q1_4" value="a"> Uma atitude de respeito que fortalece a saúde mental de ambos.</label>
-                        <label><input type="radio" name="q1_4" value="b"> Algo desnecessário, pois cada um cuida só de si.</label>
-                        <label><input type="radio" name="q1_4" value="c"> Uma forma de bullying passivo.</label>
-                    </div>
-                    <div class="quiz-question">
-                        <p class="q-title">5. O que fazer ao perceber que a ansiedade está atrapalhando seu dia a dia?</p>
-                        <label><input type="radio" name="q1_5" value="a"> Fingir que nada está acontecendo.</label>
-                        <label><input type="radio" name="q1_5" value="b"> Buscar ajuda de um profissional de saúde, pedagogo ou adulto de confiança.</label>
-                        <label><input type="radio" name="q1_5" value="c"> Isolar-se de todos os amigos.</label>
-                    </div>
-                    <button type="button" id="btn-sub-q1" class="btn btn-lime">Ver Resultado do Quiz 1</button>
-                </form>
-                <div id="res-quiz1" class="quiz-result hidden"></div>
-            </div>
-
-            <!-- QUIZ 2: O QUE FAZER SE A SAÚDE MENTAL NÃO ESTÁ NORMAL -->
-            <div id="quiz2" class="quiz-content bento-card hidden">
-                <h3 class="card-title">Quiz: Sinais de alerta e como agir</h3>
-                <p class="card-text">Saiba reconhecer quando as coisas não vão bem e qual a melhor atitude tomar.</p>
-                <form id="form-quiz2" class="quiz-form">
-                    <div class="quiz-question">
-                        <p class="q-title">1. Se você notar alteração constante de humor, isolamento severo e perda de interesse pelas coisas, o que aconteceu?</p>
-                        <label><input type="radio" name="q2_1" value="a"> É apenas preguiça passageira, não merece atenção.</label>
-                        <label><input type="radio" name="q2_1" value="b"> São sinais de alerta que indicam que a saúde mental precisa de cuidados.</label>
-                        <label><input type="radio" name="q2_1" value="c"> Significa que a pessoa não quer mais ter amigos.</label>
-                    </div>
-                    <div class="quiz-question">
-                        <p class="q-title">2. O que você deve fazer se um amigo confidenciar que está com pensamentos muito ruins ou sem esperança?</p>
-                        <label><input type="radio" name="q2_2" value="a"> Guardar segredo absoluto mesmo se houver risco.</label>
-                        <label><input type="radio" name="q2_2" value="b"> Ouvir com empatia e comunicar um adulto de confiança ou a equipe pedagógica.</label>
-                        <label><input type="radio" name="q2_2" value="c"> Fazer piada da situação para descontrair.</label>
-                    </div>
-                    <div class="quiz-question">
-                        <p class="q-title">3. Sentir falta de ar, coração acelerado e medo intenso repentino antes de uma apresentação na escola pode ser sinal de:</p>
-                        <label><input type="radio" name="q2_3" value="a"> Crise de ansiedade ou estresse elevado.</label>
-                        <label><input type="radio" name="q2_3" value="b"> Falta de estudo apenas.</label>
-                        <label><input type="radio" name="q2_3" value="c"> Algo normal que deve ser ignorado.</label>
-                    </div>
-                    <div class="quiz-question">
-                        <p class="q-title">4. Qual é o canal gratuito e anônimo de apoio emocional em momentos de crise no Brasil?</p>
-                        <label><input type="radio" name="q2_4" value="a"> Ligue 190 (Polícia Militar).</label>
-                        <label><input type="radio" name="q2_4" value="b"> CVV — Centro de Valorização da Vida pelo número 188.</label>
-                        <label><input type="radio" name="q2_4" value="c"> Ligue 192 (SAMU).</label>
-                    </div>
-                    <div class="quiz-question">
-                        <p class="q-title">5. Procurar ajuda psicológica ou pedagógica na escola é sinal de:</p>
-                        <label><input type="radio" name="q2_5" value="a"> Fraqueza ou incapacidade.</label>
-                        <label><input type="radio" name="q2_5" value="b"> Coragem, autocuidado e maturidade.</label>
-                        <label><input type="radio" name="q2_5" value="c"> Exagero e perda de tempo.</label>
-                    </div>
-                    <button type="button" id="btn-sub-q2" class="btn btn-lime">Ver Resultado do Quiz 2</button>
-                </form>
-                <div id="res-quiz2" class="quiz-result hidden"></div>
-            </div>
-
-            <!-- TESTE DE PORCENTAGEM (MAPEAMENTO EMOCIONAL) -->
-            <div id="teste" class="quiz-content bento-card hidden">
-                <h3 class="card-title">📊 Teste de Mapeamento Emocional (Apenas Educativo)</h3>
-                <p class="card-text">Responda honestamente a 5 perguntas para receber uma estimativa das suas tendências emocionais atuais (ex: Ansiedade, Estresse, Desânimo/Depressivo ou Equilíbrio).</p>
-                <form id="form-teste" class="quiz-form">
-                    <div class="quiz-question">
-                        <p class="q-title">1. Como você tem se sentido com mais frequência nas últimas semanas?</p>
-                        <label><input type="radio" name="t1" value="ansiedade" required> Agitado(a), preocupado(a) com o futuro ou com pensamentos acelerados.</label>
-                        <label><input type="radio" name="t1" value="estresse"> Sobrecarregado(a), irritado(a) com facilidade e tenso(a).</label>
-                        <label><input type="radio" name="t1" value="depressivo"> Triste, sem energia, com vontade de se isolar e sem motivação.</label>
-                        <label><input type="radio" name="t1" value="equilibrio"> Tranquilo(a), conseguindo lidar bem com as tarefas diárias.</label>
-                    </div>
-                    <div class="quiz-question">
-                        <p class="q-title">2. Como está a sua qualidade de sono recentemente?</p>
-                        <label><input type="radio" name="t2" value="ansiedade"> Custando a dormir por ficar pensando nas obrigações.</label>
-                        <label><input type="radio" name="t2" value="estresse"> Acordo várias vezes na noite parecendo que não descansei.</label>
-                        <label><input type="radio" name="t2" value="depressivo"> Durmo demais para fugir da realidade ou tenho sono muito pesado.</label>
-                        <label><input type="radio" name="t2" value="equilibrio"> Durmo bem e me sinto descansado(a) de manhã.</label>
-                    </div>
-                    <div class="quiz-question">
-                        <p class="q-title">3. Quando você pensa na rotina de provas ou trabalhos do Colégio Visconde:</p>
-                        <label><input type="radio" name="t3" value="ansiedade"> Sinto frio na barriga, ansiedade forte e medo de falhar.</label>
-                        <label><input type="radio" name="t3" value="estresse"> Fico muito irritado(a) e com sensação de esgotamento.</label>
-                        <label><input type="radio" name="t3" value="depressivo"> Sinto desânimo total, como se não fizesse diferença me esforçar.</label>
-                        <label><input type="radio" name="t3" value="equilibrio"> Me organizo no meu tempo e consigo manter a calma.</label>
-                    </div>
-                    <div class="quiz-question">
-                        <p class="q-title">4. Em relação ao convívio social com amigos e colegas de classe:</p>
-                        <label><input type="radio" name="t4" value="ansiedade"> Fico com receio de ser julgado(a) ou mal interpretado(a).</label>
-                        <label><input type="radio" name="t4" value="estresse"> Perco a paciência fácil em conversas do dia a dia.</label>
-                        <label><input type="radio" name="t4" value="depressivo"> Prefiro ficar no meu canto, sem vontade de interagir.</label>
-                        <label><input type="radio" name="t4" value="equilibrio"> Me sinto acolhido(a) e gosto de conversar com eles.</label>
-                    </div>
-                    <div class="quiz-question">
-                        <p class="q-title">5. Como você avalia seu nível de energia no momento?</p>
-                        <label><input type="radio" name="t5" value="ansiedade"> Energia inquieta/nervosa.</label>
-                        <label><input type="radio" name="t5" value="estresse"> Sensação constante de cansaço físico e mental.</label>
-                        <label><input type="radio" name="t5" value="depressivo"> Sensação de esvaziamento e falta de forças.</label>
-                        <label><input type="radio" name="t5" value="equilibrio"> Boa energia e disposição equilibrada.</label>
-                    </div>
-                    <button type="button" id="btn-sub-teste" class="btn btn-lime">Calcular Mapeamento Emocional (%)</button>
-                </form>
-
-                <!-- RESULTADO EM PORCENTAGEM -->
-                <div id="res-teste" class="quiz-result hidden">
-                    <h4>📊 Seu Mapeamento Emocional Estimado:</h4>
-                    <div class="progress-bar-container">
-                        <div class="progress-label"><span>Ansioso:</span> <strong id="pct-ans">0%</strong></div>
-                        <div class="progress-track"><div id="bar-ans" class="progress-fill bar-ans"></div></div>
-
-                        <div class="progress-label"><span>Estressado / Esgotado:</span> <strong id="pct-est">0%</strong></div>
-                        <div class="progress-track"><div id="bar-est" class="progress-fill bar-est"></div></div>
-
-                        <div class="progress-label"><span>Desânimo / Tendência Depressiva:</span> <strong id="pct-dep">0%</strong></div>
-                        <div class="progress-track"><div id="bar-dep" class="progress-fill bar-dep"></div></div>
-
-                        <div class="progress-label"><span>Equilibrado / Saudável:</span> <strong id="pct-eq">0%</strong></div>
-                        <div class="progress-track"><div id="bar-eq" class="progress-fill bar-eq"></div></div>
-                    </div>
-                    <p class="teste-aviso">⚠️ <em>Atenção: Este teste tem caráter estritamente pedagógico e interativo. Ele não substitui uma avaliação profissional por psicólogo ou médico. Se os sentimentos negativos forem frequentes, procure auxílio na escola ou na rede pública de saúde!</em></p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. PÁGINA DE REFERÊNCIAS CONFIÁVEIS -->
-        <section id="referencias" class="section-padding">
-            <div class="bento-card accent-sage">
-                <h2 class="section-title">📚 Página de Referências</h2>
-                <p class="section-desc">Fontes confiáveis, órgãos oficiais e cartilhas educativas utilizadas para a elaboração deste portal de saúde mental:</p>
-                <ul class="referencias-lista">
-                    <li>
-                        🌐 <strong>Ministério da Saúde (Brasil):</strong> Portal sobre Saúde Mental e Linhas de Cuidado na Atenção Básica. 
-                        <a href="https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/s/saude-mental" target="_blank" rel="noopener">Acessar portal oficial 🔗</a>
-                    </li>
-                    <li>
-                        💛 <strong>CVV — Centro de Valorização da Vida:</strong> Atendimento preventivo e apoio emocional (Ligue 188). 
-                        <a href="https://cvv.org.br" target="_blank" rel="noopener">Visitar site do CVV 🔗</a>
-                    </li>
-                    <li>
-                        🧠 <strong>Organização Mundial da Saúde (OMS / WHO):</strong> Diretrizes para a saúde mental de adolescentes nas escolas. 
-                        <a href="https://www.who.int/news-room/fact-sheets/detail/adolescent-mental-health" target="_blank" rel="noopener">Ver relatório da OMS 🔗</a>
-                    </li>
-                    <li>
-                        🏫 <strong>Secretaria de Estado da Educação do Paraná (SEED-PR):</strong> Orientação e Acolhimento na Rede Estadual de Ensino. 
-                        <a href="https://www.educacao.pr.gov.br" target="_blank" rel="noopener">Acessar SEED-PR 🔗</a>
-                    </li>
-                    <li>
-                        📗 <strong>Cartilha de Saúde Mental e Acolhimento na Escola:</strong> Conteúdos sobre escuta ativa e combate ao estresse no ensino médio.
-                    </li>
-                </ul>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- BOTÃO VOLTAR AO TOPO -->
-    <button id="btn-top" class="btn-top" title="Voltar ao Topo">⬆️</button>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="container">
-            <p><strong>Espaço Conecta VG</strong> — Portal de Apoio ao Estudante do Colégio Visconde de Guarapuava.</p>
-            <p style="margin-top: 8px; opacity: 0.85;">Guarapuava - PR | Projeto Educativo sobre Saúde Emocional 🍃⚡</p>
+      <!-- Grid de Versículos e Frases Motivacionais -->
+      <div class="cards-grid">
+        <div class="card verse-card">
+          <i class="fa-solid fa-quote-right quote-icon"></i>
+          <div class="verse-title">
+            <i class="fa-solid fa-heart"></i> O Pai Te Espera de Braços Abertos
+          </div>
+          <p class="verse-text">"E, levantando-se, foi para seu pai. Quando ainda estava longe, seu pai o viu e foi movido de íntima compaixão e, correndo, lançou-se-lhe ao pescoço e o beijou."</p>
+          <p class="verse-ref">Lucas 15:20</p>
         </div>
-    </footer>
 
-    <script src="script.js"></script>
+        <div class="card verse-card">
+          <i class="fa-solid fa-quote-right quote-icon"></i>
+          <div class="verse-title">
+            <i class="fa-solid fa-shield-halved"></i> Não Temas, Ele Está Contigo
+          </div>
+          <p class="verse-text">"Por isso não tema, pois estou com você; não se aproxime com medo, pois sou o seu Deus. Eu o fortalecerei e o ajudarei; eu o segurarei com a minha mão direita vitoriosa."</p>
+          <p class="verse-ref">Isaías 41:10</p>
+        </div>
+
+        <div class="card verse-card">
+          <i class="fa-solid fa-quote-right quote-icon"></i>
+          <div class="verse-title">
+            <i class="fa-solid fa-hands-holding"></i> Descanso para a Sua Alma
+          </div>
+          <p class="verse-text">"Venham a mim, todos os que estão cansados e sobrecarregados, e eu darei descanso a vocês."</p>
+          <p class="verse-ref">Mateus 11:28</p>
+        </div>
+
+        <div class="card verse-card">
+          <i class="fa-solid fa-quote-right quote-icon"></i>
+          <div class="verse-title">
+            <i class="fa-solid fa-compass"></i> Um Futuro Cheio de Esperança
+          </div>
+          <p class="verse-text">"Porque sou eu que conheço os planos que tenho para vocês', diz o Senhor, 'planos de fazê-los prosperar e não de causar dano, planos de dar a vocês esperança e um futuro.'"</p>
+          <p class="verse-ref">Jeremias 29:11</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. PÁGINA REDE DE APOIO -->
+    <section id="apoio" class="page-section">
+      <div class="section-header">
+        <h2>Sua Rede de Apoio no Visconde</h2>
+        <p>Precisa de uma conversa, conselho ou ajuda com os estudos e a rotina? Nossos profissionais estão à disposição!</p>
+      </div>
+
+      <div class="support-group">
+        <h3><i class="fa-solid fa-user-tie"></i> Direção</h3>
+        <div class="cards-grid">
+          <div class="person-card">
+            <div class="person-avatar"><i class="fa-solid fa-user-nurse"></i></div>
+            <div class="person-info">
+              <h4>Néia</h4>
+              <p>Diretora</p>
+            </div>
+          </div>
+          <div class="person-card">
+            <div class="person-avatar"><i class="fa-solid fa-user-check"></i></div>
+            <div class="person-info">
+              <h4>Débora</h4>
+              <p>Diretora</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="support-group">
+        <h3><i class="fa-solid fa-graduation-cap"></i> Equipe Pedagógica</h3>
+        <div class="cards-grid">
+          <div class="person-card">
+            <div class="person-avatar"><i class="fa-solid fa-user-graduate"></i></div>
+            <div class="person-info">
+              <h4>Neli</h4>
+              <p>Pedagoga</p>
+            </div>
+          </div>
+          <div class="person-card">
+            <div class="person-avatar"><i class="fa-solid fa-user-astronaut"></i></div>
+            <div class="person-info">
+              <h4>Giesi</h4>
+              <p>Pedagogo</p>
+            </div>
+          </div>
+          <div class="person-card">
+            <div class="person-avatar"><i class="fa-solid fa-user-ninja"></i></div>
+            <div class="person-info">
+              <h4>Reni</h4>
+              <p>Pedagoga</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="support-group">
+        <h3><i class="fa-solid fa-chalkboard-user"></i> Professores</h3>
+        <div class="cards-grid">
+          <div class="person-card">
+            <div class="person-avatar"><i class="fa-solid fa-book-open"></i></div>
+            <div class="person-info">
+              <h4>Prof. Johann</h4>
+              <p>Docente</p>
+            </div>
+          </div>
+          <div class="person-card">
+            <div class="person-avatar"><i class="fa-solid fa-book-bookmark"></i></div>
+            <div class="person-info">
+              <h4>Prof. Marianna</h4>
+              <p>Docente</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="banner-support">
+        <h3>🌟 Excelência e Acolhimento</h3>
+        <p>Estes são <strong>ótimos profissionais</strong> prontos para te ouvir. Se você está passando por um momento difícil, precisa de uma orientação nos estudos ou de um bom conselho, não hesite em procurá-los!</p>
+      </div>
+    </section>
+
+    <!-- 3. PÁGINA TÉCNICA POMODORO -->
+    <section id="pomodoro" class="page-section">
+      <div class="section-header">
+        <h2>Técnica Pomodoro</h2>
+        <p>Estude com foco total em blocos de tempo e faça pausas regulares para manter o cérebro descansado.</p>
+      </div>
+
+      <div class="pomodoro-box">
+        <div class="timer-modes">
+          <button class="mode-btn active" id="modeFocus" onclick="setTimerMode('focus')">Foco (25 min)</button>
+          <button class="mode-btn" id="modeShort" onclick="setTimerMode('short')">Pausa Curta (5 min)</button>
+          <button class="mode-btn" id="modeLong" onclick="setTimerMode('long')">Pausa Longa (15 min)</button>
+        </div>
+
+        <div class="timer-display" id="timerDisplay">25:00</div>
+
+        <div class="controls-btn">
+          <button class="btn btn-primary" id="btnStart" onclick="toggleTimer()"><i class="fa-solid fa-play"></i> Iniciar</button>
+          <button class="btn btn-secondary" onclick="resetTimer()"><i class="fa-solid fa-rotate-right"></i> Reiniciar</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. PÁGINA PLANO DE ESTUDOS -->
+    <section id="plano" class="page-section">
+      <div class="section-header">
+        <h2>Montar Plano de Estudos Personalizado</h2>
+        <p>Informe sua rotina diária e receba uma sugestão adaptada ao seu tempo disponível.</p>
+      </div>
+
+      <div class="routine-form">
+        <div class="form-group">
+          <label for="periodoEcolar"><i class="fa-solid fa-school"></i> Em qual período você estuda no Colégio?</label>
+          <select id="periodoEcolar">
+            <option value="manha">Manhã (07:30 - 12:00)</option>
+            <option value="tarde">Tarde (13:00 - 17:30)</option>
+            <option value="noite">Noite (18:50 - 22:30)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="tempoLivre"><i class="fa-solid fa-hourglass-half"></i> Quantas horas livres você tem por dia fora da escola?</label>
+          <select id="tempoLivre">
+            <option value="1">1 hora por dia</option>
+            <option value="2">2 horas por dia</option>
+            <option value="3">3 ou mais horas por dia</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="descricaoRotina"><i class="fa-solid fa-pen"></i> Conte um pouco sobre suas tarefas diárias (ex: trabalho, tarefas de casa, cursos, etc.):</label>
+          <textarea id="descricaoRotina" rows="3" placeholder="Ex: Chego da escola às 12:30, almoço, ajudo em casa e tenho tempo livre no final da tarde..."></textarea>
+        </div>
+
+        <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="gerarPlano()"><i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Meu Plano de Estudos</button>
+      </div>
+
+      <div class="plan-result" id="planResult">
+        <h3><i class="fa-solid fa-calendar-days"></i> Seu Cronograma de Estudos Recomendado</h3>
+        <div id="planContent"></div>
+      </div>
+    </section>
+
+    <!-- 5. PÁGINA FUNDOS SONOROS -->
+    <section id="sons" class="page-section">
+      <div class="section-header">
+        <h2>Fundos Sonoros para Foco e Relaxamento</h2>
+        <p>Clique em um dos cards para ligar ou desligar o som ambiente enquanto realiza seus estudos.</p>
+      </div>
+
+      <div class="sound-cards">
+        <div class="sound-card" id="sound-white" onclick="toggleSound('white')">
+          <div class="sound-icon"><i class="fa-solid fa-sliders"></i></div>
+          <h3>Ruído Branco</h3>
+          <p>Bloqueia ruídos externos e melhora o foco constante.</p>
+        </div>
+
+        <div class="sound-card" id="sound-rain" onclick="toggleSound('rain')">
+          <div class="sound-icon"><i class="fa-solid fa-cloud-showers-heavy"></i></div>
+          <h3>Som de Chuva</h3>
+          <p>Suave e relaxante para leitura e memorização.</p>
+        </div>
+
+        <div class="sound-card" id="sound-fire" onclick="toggleSound('fire')">
+          <div class="sound-icon"><i class="fa-solid fa-fire"></i></div>
+          <h3>Som de Fogueira</h3>
+          <p>Aconchegante e estimulante para a concentração.</p>
+        </div>
+
+        <div class="sound-card" id="sound-waves" onclick="toggleSound('waves')">
+          <div class="sound-icon"><i class="fa-solid fa-water"></i></div>
+          <h3>Ondas Suaves</h3>
+          <p>Ritmo calmo para aliviar a ansiedade e o estresse.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>Espaço Conecta Visconde</strong> • Colégio Estadual Visconde de Guarapuava</p>
+    <p style="margin-top: 0.3rem;">Um ambiente seguro de apoio, fé e aprendizado.</p>
+  </footer>
+
+  <script>
+    /* --- NAVEGAÇÃO ENTRE PÁGINAS (SPA) --- */
+    function switchPage(pageId) {
+      document.querySelectorAll('.page-section').forEach(section => {
+        section.classList.remove('active');
+      });
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+      });
+
+      const activeSection = document.getElementById(pageId);
+      if(activeSection) {
+        activeSection.classList.add('active');
+      }
+
+      event.currentTarget.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* --- CARROSSEL --- */
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+
+    function moveSlide(direction) {
+      currentSlide = (currentSlide + direction + slides.length) % slides.length;
+      document.getElementById('carouselSlides').style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+
+    setInterval(() => {
+      moveSlide(1);
+    }, 6000);
+
+    /* --- TEMPORIZADOR POMODORO --- */
+    let timerInterval = null;
+    let secondsLeft = 25 * 60;
+    let isRunning = false;
+    let currentMode = 'focus';
+
+    function updateTimerDisplay() {
+      const mins = Math.floor(secondsLeft / 60).toString().padStart(2, '0');
+      const secs = (secondsLeft % 60).toString().padStart(2, '0');
+      document.getElementById('timerDisplay').innerText = `${mins}:${secs}`;
+    }
+
+    function setTimerMode(mode) {
+      currentMode = mode;
+      document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+      
+      if(mode === 'focus') {
+        secondsLeft = 25 * 60;
+        document.getElementById('modeFocus').classList.add('active');
+      } else if(mode === 'short') {
+        secondsLeft = 5 * 60;
+        document.getElementById('modeShort').classList.add('active');
+      } else if(mode === 'long') {
+        secondsLeft = 15 * 60;
+        document.getElementById('modeLong').classList.add('active');
+      }
+
+      if(isRunning) toggleTimer();
+      updateTimerDisplay();
+    }
+
+    function toggleTimer() {
+      const btn = document.getElementById('btnStart');
+      if (isRunning) {
+        clearInterval(timerInterval);
+        isRunning = false;
+        btn.innerHTML = '<i class="fa-solid fa-play"></i> Continuar';
+      } else {
+        isRunning = true;
+        btn.innerHTML = '<i class="fa-solid fa-pause"></i> Pausar';
+        timerInterval = setInterval(() => {
+          if (secondsLeft > 0) {
+            secondsLeft--;
+            updateTimerDisplay();
+          } else {
+            clearInterval(timerInterval);
+            isRunning = false;
+            alert('Tempo concluído! Faça sua pausa ou inicie um novo ciclo.');
+            btn.innerHTML = '<i class="fa-solid fa-play"></i> Iniciar';
+          }
+        }, 1000);
+      }
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      isRunning = false;
+      document.getElementById('btnStart').innerHTML = '<i class="fa-solid fa-play"></i> Iniciar';
+      setTimerMode(currentMode);
+    }
+
+    /* --- PLANO DE ESTUDOS --- */
+    function gerarPlano() {
+      const periodo = document.getElementById('periodoEcolar').value;
+      const horas = document.getElementById('tempoLivre').value;
+      const res = document.getElementById('planResult');
+      const content = document.getElementById('planContent');
+
+      let html = '';
+
+      if (periodo === 'manha') {
+        html += `<div class="schedule-item"><span><strong>13:30 - 14:00:</strong> Almoço e Descanso Mental</span></div>`;
+        html += `<div class="schedule-item"><span><strong>14:00 - 14:50:</strong> Bloco de Estudos 1 (Revisão da aula de hoje)</span></div>`;
+        if (horas >= 2) {
+          html += `<div class="schedule-item"><span><strong>15:00 - 15:50:</strong> Bloco de Estudos 2 (Exercícios / Trabalhos)</span></div>`;
+        }
+      } else if (periodo === 'tarde') {
+        html += `<div class="schedule-item"><span><strong>09:00 - 09:50:</strong> Bloco de Estudos 1 (Leitura e Resumos)</span></div>`;
+        if (horas >= 2) {
+          html += `<div class="schedule-item"><span><strong>10:00 - 10:50:</strong> Bloco de Estudos 2 (Exercícios da Semana)</span></div>`;
+        }
+      } else {
+        html += `<div class="schedule-item"><span><strong>14:00 - 15:00:</strong> Foco Principal de Estudos (Teoria e Prática)</span></div>`;
+      }
+
+      html += `<div class="schedule-item"><span><strong>Dica Especial:</strong> Faça pausas de 5 minutos utilizando a nossa aba <em>Técnica Pomodoro</em> e coloque um <em>Fundo Sonoro</em> para se concentrar!</span></div>`;
+
+      content.innerHTML = html;
+      res.classList.add('active');
+    }
+
+    /* --- SINTETIZADOR DE SONS AMBIENTES (WEB AUDIO API) --- */
+    let audioCtx = null;
+    let activeNodes = {};
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      return audioCtx;
+    }
+
+    function toggleSound(type) {
+      const card = document.getElementById(`sound-${type}`);
+      const ctx = getAudioContext();
+
+      if (activeNodes[type]) {
+        // Desligar o som
+        activeNodes[type].stop();
+        delete activeNodes[type];
+        card.classList.remove('playing');
+      } else {
+        // Ligar o som sintetizado
+        const bufferSize = ctx.sampleRate * 2;
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+
+        for (let i = 0; i < bufferSize; i++) {
+          if (type === 'white') {
+            data[i] = Math.random() * 2 - 1;
+          } else if (type === 'rain') {
+            data[i] = (Math.random() * 2 - 1) * 0.4;
+          } else if (type === 'fire') {
+            data[i] = (Math.random() * 2 - 1) * (Math.random() > 0.98 ? 0.8 : 0.15);
+          } else if (type === 'waves') {
+            data[i] = Math.sin(i / 100) * (Math.random() * 0.2);
+          }
+        }
+
+        const noise = ctx.createBufferSource();
+        noise.buffer = buffer;
+        noise.loop = true;
+
+        const filter = ctx.createBiquadFilter();
+        filter.type = type === 'white' ? 'allpass' : 'lowpass';
+        filter.frequency.value = type === 'rain' ? 800 : type === 'fire' ? 1200 : 400;
+
+        const gain = ctx.createGain();
+        gain.gain.value = 0.15;
+
+        noise.connect(filter);
+        filter.connect(gain);
+        gain.connect(ctx.destination);
+
+        noise.start();
+        activeNodes[type] = noise;
+        card.classList.add('playing');
+      }
+    }
+  </script>
 </body>
 </html>
-
-=== CSS ===
-/* ESTILOS EXTERNOS - ESPAÇO CONECTA VG */
-:root {
-    --sage-50: #f4f7f4;
-    --sage-100: #e3eae2;
-    --sage-200: #c6d5c4;
-    --sage-300: #a2b9a0;
-    --sage-500: #738f71;
-    --sage-700: #495e48;
-    --sage-900: #253325;
-    
-    --lime-main: #ccff00;
-    --lime-hover: #b3e600;
-    --lime-light: #f2ffb3;
-    
-    --text-main: #182418;
-    --text-muted: #4e604e;
-    --bg-card: #ffffff;
-    --bg-body: #edf2ed;
-    
-    --radius-lg: 24px;
-    --radius-md: 16px;
-    --radius-sm: 8px;
-    
-    --shadow-soft: 0 10px 30px -5px rgba(37, 51, 37, 0.05);
-    --shadow-hover: 0 20px 40px -10px rgba(37, 51, 37, 0.12);
-    
-    --font-base: 16px;
-}
-
-/* MODO ESCURO */
-body.dark-mode {
-    --bg-body: #121a12;
-    --bg-card: #1c271c;
-    --text-main: #e8f0e8;
-    --text-muted: #a3b8a3;
-    --sage-100: #2a3a2a;
-    --sage-200: #354a35;
-    --sage-900: #e8f0e8;
-    --shadow-soft: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
-}
-
-/* ALTO CONTRASTE */
-body.high-contrast {
-    --bg-body: #000000;
-    --bg-card: #000000;
-    --text-main: #ffffff;
-    --text-muted: #ffff00;
-    --lime-main: #ffff00;
-    --sage-500: #ffffff;
-    --sage-700: #ffffff;
-    --sage-900: #ffffff;
-    border: 2px solid #ffffff;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-html {
-    scroll-behavior: smooth;
-    font-size: var(--font-base);
-}
-
-body {
-    background-color: var(--bg-body);
-    color: var(--text-main);
-    line-height: 1.6;
-    overflow-x: hidden;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 24px;
-}
-
-.section-padding {
-    padding: 40px 0;
-}
-
-/* BARRA DE ACESSIBILIDADE */
-.accessibility-bar {
-    background: var(--sage-900);
-    color: white;
-    padding: 8px 0;
-    font-size: 0.85rem;
-}
-
-.accessibility-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.access-buttons {
-    display: flex;
-    gap: 8px;
-}
-
-.access-btn {
-    background: rgba(255, 255, 255, 0.15);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    padding: 4px 10px;
-    border-radius: 999px;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 0.8rem;
-}
-
-.access-btn:hover {
-    background: var(--lime-main);
-    color: #000;
-}
-
-/* HEADER & NAVBAR */
-header {
-    position: sticky;
-    top: 12px;
-    z-index: 100;
-    margin-bottom: 20px;
-}
-
-.nav-inner {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    border-radius: 999px;
-    padding: 12px 28px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: var(--shadow-soft);
-}
-
-body.dark-mode .nav-inner {
-    background: rgba(28, 39, 28, 0.85);
-    border-color: rgba(255, 255, 255, 0.1);
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-weight: 800;
-    font-size: 1.2rem;
-    color: var(--sage-900);
-    text-decoration: none;
-}
-
-.logo-icon {
-    width: 36px;
-    height: 36px;
-    background: var(--lime-main);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 12px rgba(204, 255, 0, 0.4);
-}
-
-.nav-links {
-    display: flex;
-    gap: 24px;
-    list-style: none;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: var(--text-muted);
-    font-weight: 600;
-    font-size: 0.95rem;
-}
-
-.nav-links a:hover {
-    color: var(--sage-500);
-}
-
-/* BOTÕES GERAIS */
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 12px 24px;
-    border-radius: 999px;
-    font-weight: 700;
-    font-size: 0.95rem;
-    text-decoration: none;
-    cursor: pointer;
-    border: none;
-    transition: all 0.25s ease;
-}
-
-.btn-lime {
-    background-color: var(--lime-main);
-    color: #182418;
-    box-shadow: 0 4px 14px rgba(204, 255, 0, 0.35);
-}
-
-.btn-lime:hover {
-    background-color: var(--lime-hover);
-    transform: translateY(-2px);
-}
-
-.btn-sage {
-    background-color: var(--sage-500);
-    color: white;
-}
-
-.btn-sage-sm {
-    background-color: var(--sage-700);
-    color: white;
-    padding: 6px 14px;
-    font-size: 0.85rem;
-    border-radius: 999px;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-.width-100 { width: 100%; }
-
-/* HERO GRID & CARROSSEL */
-.hero-grid {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 24px;
-    align-items: center;
-}
-
-.hero-card {
-    background: linear-gradient(135deg, var(--sage-500) 0%, var(--sage-700) 100%);
-    border-radius: var(--radius-lg);
-    padding: 40px;
-    color: white;
-    box-shadow: var(--shadow-hover);
-}
-
-.badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255, 255, 255, 0.15);
-    padding: 6px 16px;
-    border-radius: 999px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-}
-
-.badge-dot {
-    width: 8px;
-    height: 8px;
-    background: var(--lime-main);
-    border-radius: 50%;
-}
-
-.hero-title {
-    font-size: 2.4rem;
-    font-weight: 800;
-    line-height: 1.2;
-    margin-bottom: 16px;
-}
-
-.hero-title span { color: var(--lime-main); }
-
-.hero-subtitle {
-    font-size: 1.05rem;
-    color: var(--sage-100);
-    margin-bottom: 28px;
-}
-
-.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-
-/* CARROSSEL DE IMAGENS */
-.carousel-card {
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    position: relative;
-    box-shadow: var(--shadow-soft);
-}
-
-.carousel {
-    position: relative;
-    width: 100%;
-    height: 380px;
-    overflow: hidden;
-}
-
-.carousel-slides {
-    display: flex;
-    width: 300%;
-    height: 100%;
-    transition: transform 0.5s ease-in-out;
-}
-
-.slide {
-    width: 33.333%;
-    height: 100%;
-    position: relative;
-}
-
-.slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.slide-caption {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(transparent, rgba(0,0,0,0.8));
-    color: white;
-    padding: 20px;
-    font-weight: 700;
-    font-size: 1rem;
-}
-
-.carousel-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.7);
-    border: none;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-weight: bold;
-    z-index: 10;
-}
-
-.carousel-btn.prev { left: 12px; }
-.carousel-btn.next { right: 12px; }
-
-/* BENTO CARDS & SEÇÕES */
-.section-header {
-    text-align: center;
-    margin-bottom: 32px;
-}
-
-.section-badge {
-    background: var(--sage-100);
-    color: var(--sage-700);
-    padding: 4px 12px;
-    border-radius: 999px;
-    font-weight: 700;
-    font-size: 0.85rem;
-}
-
-.section-title {
-    font-size: 2rem;
-    font-weight: 800;
-    margin-top: 8px;
-}
-
-.section-desc {
-    color: var(--text-muted);
-    max-width: 650px;
-    margin: 0 auto;
-}
-
-.escuta-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-}
-
-.bento-card {
-    background: var(--bg-card);
-    border-radius: var(--radius-lg);
-    padding: 32px;
-    box-shadow: var(--shadow-soft);
-    border: 1px solid rgba(0, 0, 0, 0.04);
-}
-
-.bento-card.accent-sage {
-    background: var(--sage-100);
-}
-
-body.dark-mode .bento-card.accent-sage {
-    background: var(--sage-900);
-}
-
-.card-title {
-    font-size: 1.4rem;
-    font-weight: 700;
-    margin-bottom: 12px;
-}
-
-.card-text {
-    color: var(--text-muted);
-    margin-bottom: 20px;
-}
-
-/* FORMULÁRIO DE ESCUTA */
-.form-group {
-    margin-bottom: 16px;
-}
-
-.form-group label {
-    display: block;
-    font-weight: 600;
-    font-size: 0.9rem;
-    margin-bottom: 6px;
-}
-
-.form-input {
-    width: 100%;
-    padding: 12px 16px;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--sage-200);
-    background: var(--sage-50);
-    font-size: 0.95rem;
-    outline: none;
-}
-
-body.dark-mode .form-input {
-    background: #121a12;
-    border-color: #2a3a2a;
-    color: #fff;
-}
-
-.form-input:focus {
-    border-color: var(--sage-500);
-}
-
-.mensagem-acolhimento {
-    margin-top: 16px;
-    padding: 16px;
-    background: var(--lime-light);
-    border-left: 5px solid var(--lime-dark);
-    border-radius: var(--radius-sm);
-    color: #253325;
-    font-weight: 600;
-    font-size: 0.95rem;
-    animation: fadeIn 0.4s ease-in-out;
-}
-
-.orientacoes-lista {
-    list-style: none;
-    margin-bottom: 24px;
-}
-
-.orientacoes-lista li {
-    margin-bottom: 10px;
-    font-size: 0.95rem;
-}
-
-.frase-motivacional-box {
-    background: var(--bg-card);
-    padding: 20px;
-    border-radius: var(--radius-md);
-    border-left: 4px solid var(--lime-main);
-    position: relative;
-}
-
-.quote-icon {
-    font-size: 2rem;
-    color: var(--sage-300);
-    line-height: 1;
-}
-
-/* QUIZZES & TESTES */
-.quiz-tabs {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 24px;
-    flex-wrap: wrap;
-}
-
-.quiz-tab-btn {
-    padding: 10px 20px;
-    border-radius: 999px;
-    border: 1px solid var(--sage-300);
-    background: var(--bg-card);
-    color: var(--text-main);
-    font-weight: 700;
-    cursor: pointer;
-}
-
-.quiz-tab-btn.active {
-    background: var(--sage-500);
-    color: white;
-    border-color: var(--sage-500);
-}
-
-.quiz-question {
-    background: var(--sage-50);
-    padding: 16px;
-    border-radius: var(--radius-md);
-    margin-bottom: 16px;
-}
-
-body.dark-mode .quiz-question {
-    background: #121a12;
-}
-
-.q-title {
-    font-weight: 700;
-    margin-bottom: 10px;
-}
-
-.quiz-question label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 0.95rem;
-    cursor: pointer;
-}
-
-.quiz-result {
-    margin-top: 24px;
-    padding: 20px;
-    background: var(--sage-100);
-    border-radius: var(--radius-md);
-    font-weight: 700;
-    font-size: 1.1rem;
-    animation: fadeIn 0.4s ease;
-}
-
-/* BARRAS DE PROGRESSO DO TESTE */
-.progress-bar-container {
-    margin-top: 16px;
-}
-
-.progress-label {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.9rem;
-    margin-bottom: 4px;
-}
-
-.progress-track {
-    height: 12px;
-    background: #d0ded0;
-    border-radius: 999px;
-    overflow: hidden;
-    margin-bottom: 12px;
-}
-
-.progress-fill {
-    height: 100%;
-    width: 0%;
-    transition: width 0.8s ease-in-out;
-}
-
-.bar-ans { background-color: #ff9900; }
-.bar-est { background-color: #ff4444; }
-.bar-dep { background-color: #9933cc; }
-.bar-eq { background-color: #00cc66; }
-
-.teste-aviso {
-    font-size: 0.8rem;
-    font-weight: normal;
-    color: var(--text-muted);
-    margin-top: 16px;
-}
-
-/* REFERÊNCIAS */
-.referencias-lista {
-    list-style: none;
-}
-
-.referencias-lista li {
-    padding: 12px 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-.referencias-lista a {
-    color: var(--sage-700);
-    font-weight: 700;
-    margin-left: 8px;
-}
-
-/* BOTÃO VOLTAR AO TOPO */
-.btn-top {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: var(--lime-main);
-    border: none;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    cursor: pointer;
-    font-size: 1.2rem;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    z-index: 90;
-}
-
-.btn-top.visible {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* FOOTER */
-footer {
-    background: var(--sage-900);
-    color: white;
-    padding: 32px 0;
-    text-align: center;
-    font-size: 0.9rem;
-}
-
-.hidden { display: none !important; }
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@media (max-width: 900px) {
-    .hero-grid, .escuta-grid { grid-template-columns: 1fr; }
-    .nav-links { display: none; }
-}
-
-=== JS ===
-// SCRIPT JAVASCRIPT - ESPAÇO CONECTA VG
-
-document.addEventListener('DOMContentLoaded', () => {
-
-    // 1. CARROSSEL DE IMAGENS
-    const slides = document.getElementById('carouselSlides');
-    const prevBtn = document.getElementById('prevSlide');
-    const nextBtn = document.getElementById('nextSlide');
-    let currentSlide = 0;
-    const totalSlides = 3;
-
-    function updateCarousel() {
-        if(slides) {
-            slides.style.transform = `translateX(-${currentSlide * 33.333}%)`;
-        }
-    }
-
-    if(nextBtn && prevBtn) {
-        nextBtn.addEventListener('click', () => {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            updateCarousel();
-        });
-
-        prevBtn.addEventListener('click', () => {
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-            updateCarousel();
-        });
-
-        // Autoplay do carrossel a cada 5s
-        setInterval(() => {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            updateCarousel();
-        }, 5000);
-    }
-
-    // 2. PORTAL DE ESCUTA (FORMULÁRIO SIMULADO + RESPOSTA AUTOMÁTICA)
-    const formDesabafo = document.getElementById('form-desabafo');
-    const msgAcolhimento = document.getElementById('mensagem-acolhimento');
-
-    if(formDesabafo) {
-        formDesabafo.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const nomeInput = document.getElementById('nome').value.trim();
-            const nome = nomeInput ? nomeInput : 'amigo(a)';
-
-            msgAcolhimento.innerHTML = `
-                🌱 <strong>Obrigado por compartilhar, ${nome}!</strong><br>
-                Ouvir seus próprios pensamentos é o primeiro passo para encontrar a leveza. 
-                Lembre-se: este é um formulário de simulação e nenhum dado foi gravado. 
-                Se você sente que precisa de um apoio real agora, não guarde só para você — converse com um professor, a equipe pedagógica do Visconde de Guarapuava ou ligue para o <strong>CVV (188)</strong>. Você importa! 💚
-            `;
-            msgAcolhimento.classList.remove('hidden');
-            formDesabafo.reset();
-        });
-    }
-
-    // GERADOR DE FRASES MOTIVACIONAIS
-    const frases = [
-        "Você é mais forte do que imagina e não precisa passar por nada disso sozinho(a).",
-        "Tudo bem não estar 100% bem todos os dias. Respeite o seu tempo.",
-        "Nenhuma nota ou cobrança define o seu valor como pessoa.",
-        "Aprender a pedir ajuda é um dos maiores atos de coragem e maturidade.",
-        "Depois da tempestade, o equilíbrio sempre volta. Mantenha a calma!",
-        "Um dia de cada vez. Você está progredindo mais do que percebe."
-    ];
-
-    const btnNovaFrase = document.getElementById('btn-nova-frase');
-    const txtFrase = document.getElementById('frase-motivacional');
-
-    if(btnNovaFrase && txtFrase) {
-        btnNovaFrase.addEventListener('click', () => {
-            const randomIndex = Math.floor(Math.random() * frases.length);
-            txtFrase.textContent = frases[randomIndex];
-        });
-    }
-
-    // 3. NAVEGAÇÃO POR TABS DOS QUIZZES
-    const tabBtns = document.querySelectorAll('.quiz-tab-btn');
-    const tabContents = document.querySelectorAll('.quiz-content');
-
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            tabBtns.forEach(b => b.classList.remove('active'));
-            tabContents.forEach(c => c.classList.add('hidden'));
-
-            btn.classList.add('active');
-            const target = btn.getAttribute('data-tab');
-            document.getElementById(target).classList.remove('hidden');
-        });
-    });
-
-    // QUIZ 1: BOA SAÚDE MENTAL (5 PERGUNTAS)
-    const btnSubQ1 = document.getElementById('btn-sub-q1');
-    const resQ1 = document.getElementById('res-quiz1');
-
-    if(btnSubQ1) {
-        btnSubQ1.addEventListener('click', () => {
-            const respostasCertas = { q1_1: 'b', q1_2: 'a', q1_3: 'b', q1_4: 'a', q1_5: 'b' };
-            let acertos = 0;
-            const form = document.getElementById('form-quiz1');
-            const formData = new FormData(form);
-
-            for(let key in respostasCertas) {
-                if(formData.get(key) === respostasCertas[key]) {
-                    acertos++;
-                }
-            }
-
-            resQ1.innerHTML = `🏆 <strong>Resultado do Quiz 1:</strong> Você acertou <strong>${acertos} de 5</strong> perguntas! <br>${acertos >= 4 ? 'Excelente! Você conhece ótimos hábitos para manter a mente saudável.' : 'Bom esforço! Continue praticando o autocuidado e tirando momentos de pausa.'}`;
-            resQ1.classList.remove('hidden');
-        });
-    }
-
-    // QUIZ 2: SINAIS DE ALERTA (5 PERGUNTAS)
-    const btnSubQ2 = document.getElementById('btn-sub-q2');
-    const resQ2 = document.getElementById('res-quiz2');
-
-    if(btnSubQ2) {
-        btnSubQ2.addEventListener('click', () => {
-            const respostasCertas = { q2_1: 'b', q2_2: 'b', q2_3: 'a', q2_4: 'b', q2_5: 'b' };
-            let acertos = 0;
-            const form = document.getElementById('form-quiz2');
-            const formData = new FormData(form);
-
-            for(let key in respostasCertas) {
-                if(formData.get(key) === respostasCertas[key]) {
-                    acertos++;
-                }
-            }
-
-            resQ2.innerHTML = `🏆 <strong>Resultado do Quiz 2:</strong> Você acertou <strong>${acertos} de 5</strong> perguntas! <br>${acertos >= 4 ? 'Perfeito! Você sabe identificar os sinais e onde procurar ajuda.' : 'Fique atento aos sinais e lembre-se: pedir ajuda é sempre a melhor escolha!'}`;
-            resQ2.classList.remove('hidden');
-        });
-    }
-
-    // TESTE DE MAPEAMENTO EMOCIONAL (%)
-    const btnSubTeste = document.getElementById('btn-sub-teste');
-    const resTeste = document.getElementById('res-teste');
-
-    if(btnSubTeste) {
-        btnSubTeste.addEventListener('click', () => {
-            const form = document.getElementById('form-teste');
-            const formData = new FormData(form);
-
-            let counts = { ansiedade: 0, estresse: 0, depressivo: 0, equilibrio: 0 };
-            let respondidas = 0;
-
-            for(let i = 1; i <= 5; i++) {
-                const val = formData.get(`t${i}`);
-                if(val) {
-                    counts[val]++;
-                    respondidas++;
-                }
-            }
-
-            if(respondidas < 5) {
-                alert('Por favor, responda a todas as 5 perguntas para calcular seu mapeamento.');
-                return;
-            }
-
-            // Calcular porcentagens
-            const pAns = Math.round((counts.ansiedade / 5) * 100);
-            const pEst = Math.round((counts.estresse / 5) * 100);
-            const pDep = Math.round((counts.depressivo / 5) * 100);
-            const pEq  = Math.round((counts.equilibrio / 5) * 100);
-
-            // Atualizar textos e barras
-            document.getElementById('pct-ans').textContent = `${pAns}%`;
-            document.getElementById('bar-ans').style.width = `${pAns}%`;
-
-            document.getElementById('pct-est').textContent = `${pEst}%`;
-            document.getElementById('bar-est').style.width = `${pEst}%`;
-
-            document.getElementById('pct-dep').textContent = `${pDep}%`;
-            document.getElementById('bar-dep').style.width = `${pDep}%`;
-
-            document.getElementById('pct-eq').textContent = `${pEq}%`;
-            document.getElementById('bar-eq').style.width = `${pEq}%`;
-
-            resTeste.classList.remove('hidden');
-        });
-    }
-
-    // 4. RECURSOS DE ACESSIBILIDADE (MODO ESCURO, FONTE, CONTRASTE)
-    const btnDarkMode = document.getElementById('btn-dark-mode');
-    const btnContrast = document.getElementById('btn-contrast');
-    const btnFontInc = document.getElementById('btn-font-increase');
-    const btnFontDec = document.getElementById('btn-font-decrease');
-    const btnFontReset = document.getElementById('btn-font-reset');
-
-    let fontSize = 16;
-
-    if(btnDarkMode) {
-        btnDarkMode.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            document.body.classList.remove('high-contrast');
-        });
-    }
-
-    if(btnContrast) {
-        btnContrast.addEventListener('click', () => {
-            document.body.classList.toggle('high-contrast');
-            document.body.classList.remove('dark-mode');
-        });
-    }
-
-    if(btnFontInc) {
-        btnFontInc.addEventListener('click', () => {
-            if(fontSize < 22) {
-                fontSize += 2;
-                document.documentElement.style.fontSize = `${fontSize}px`;
-            }
-        });
-    }
-
-    if(btnFontDec) {
-        btnFontDec.addEventListener('click', () => {
-            if(fontSize > 12) {
-                fontSize -= 2;
-                document.documentElement.style.fontSize = `${fontSize}px`;
-            }
-        });
-    }
-
-    if(btnFontReset) {
-        btnFontReset.addEventListener('click', () => {
-            fontSize = 16;
-            document.documentElement.style.fontSize = '16px';
-        });
-    }
-
-    // 5. BOTÃO VOLTAR AO TOPO
-    const btnTop = document.getElementById('btn-top');
-
-    window.addEventListener('scroll', () => {
-        if(window.scrollY > 300) {
-            btnTop.classList.add('visible');
-        } else {
-            btnTop.classList.remove('visible');
-        }
-    });
-
-    if(btnTop) {
-        btnTop.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
-
-});
