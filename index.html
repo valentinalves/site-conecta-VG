@@ -3,31 +3,62 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Espaço Saúde Mental - Colégio Visconde</title>
-  <!-- Importação da Fonte Nunito -->
+  <title>Portal de Apoio ao Estudante - Saúde Emocional | Colégio Visconde</title>
+  
+  <!-- Fonte Nunito do Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  
   <style>
+    /* Variáveis da Paleta: Sálvia, Limão e Off-White */
     :root {
-      --sage-primary: #738A6E;      /* Verde Sálvia Principal */
-      --sage-dark: #586B54;         /* Verde Sálvia Escuro */
-      --sage-light: #E2E8E0;        /* Verde Sálvia Suave */
-      --lime-accent: #88C057;       /* Verde Limão Vibrante */
-      --lime-hover: #78AC4A;        /* Verde Limão Escuro para Hover */
-      --lime-light: #F0F7E9;        /* Verde Limão Claro para Destaques */
-      --bg-page: #EDF1EC;           /* Fundo da Página */
-      --card-bg: #FAF9F5;           /* Off-White para os Balões/Cards */
-      --text-color: #2D372E;        /* Texto Escuro Suave */
-      --text-muted: #5A665B;        /* Texto Secundário */
-      --border-color: #DCE3DA;      /* Borda para os Cards */
+      --sage-primary: #738A6E;
+      --sage-dark: #586B54;
+      --sage-light: #E2E8E0;
+      --lime-accent: #88C057;
+      --lime-hover: #78AC4A;
+      --lime-light: #F0F7E9;
+      --bg-page: #EDF1EC;
+      --card-bg: #FAF9F5;
+      --text-color: #2D372E;
+      --text-muted: #5A665B;
+      --border-color: #DCE3DA;
+      --font-size-base: 16px;
+    }
+
+    /* Estilos do Modo Escuro */
+    body.dark-mode {
+      --bg-page: #1C241B;
+      --card-bg: #273226;
+      --text-color: #EAF0EC;
+      --text-muted: #B2C0B0;
+      --border-color: #3B4B39;
+      --lime-light: #2D3D2B;
+    }
+
+    /* Estilos de Alto Contraste */
+    body.high-contrast {
+      --bg-page: #000000;
+      --card-bg: #000000;
+      --text-color: #FFFF00;
+      --text-muted: #FFFFFF;
+      --border-color: #FFFF00;
+      --sage-primary: #00FF00;
+      --lime-accent: #FFFF00;
+      --lime-light: #111111;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    html {
+      font-size: var(--font-size-base);
+      scroll-behavior: smooth;
     }
 
     body {
@@ -35,13 +66,44 @@
       color: var(--text-color);
       line-height: 1.6;
       padding-bottom: 60px;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
+    /* Acessibilidade - Barra de Ferramentas Fixa */
+    .accessibility-bar {
+      background: var(--sage-dark);
+      color: #FFF;
+      padding: 0.5rem 1rem;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      font-size: 0.9rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .accessibility-btn {
+      background: rgba(255, 255, 255, 0.15);
+      color: #FFF;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 4px 10px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background 0.2s;
+    }
+
+    .accessibility-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Cabeçalho e Menu de Navegação */
     header {
       background: linear-gradient(135deg, var(--sage-primary), var(--sage-dark));
       color: #FFFFFF;
       text-align: center;
-      padding: 3rem 1.5rem 2.5rem 1.5rem;
+      padding: 2.5rem 1.5rem 1.5rem 1.5rem;
       border-bottom-left-radius: 30px;
       border-bottom-right-radius: 30px;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
@@ -51,22 +113,48 @@
       font-size: 2.2rem;
       font-weight: 800;
       margin-bottom: 0.5rem;
-      letter-spacing: -0.5px;
     }
 
-    header p {
-      font-size: 1.1rem;
-      font-weight: 600;
-      opacity: 0.95;
+    nav {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
+    .nav-link {
+      color: #FFFFFF;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.15);
+      transition: all 0.2s ease;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      background: var(--lime-accent);
+      color: #FFFFFF;
+    }
+
+    /* Conteúdo Principal */
     .container {
       max-width: 900px;
       margin: 2.5rem auto;
       padding: 0 1.2rem;
     }
 
-    /* Balões / Cards em Off-White com Bordas Arredondadas */
+    .page-section {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .page-section.active-page {
+      display: block;
+    }
+
+    /* Cards / Balões Off-White */
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -74,282 +162,424 @@
       padding: 2rem;
       margin-bottom: 2rem;
       box-shadow: 0 8px 20px rgba(115, 138, 110, 0.08);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 25px rgba(115, 138, 110, 0.12);
     }
 
     .card h2 {
-      color: var(--sage-dark);
+      color: var(--sage-primary);
       margin-bottom: 1rem;
       font-size: 1.5rem;
       font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 10px;
     }
 
-    .card p.desc {
-      color: var(--text-muted);
-      margin-bottom: 1.2rem;
-      font-size: 1rem;
-    }
-
-    /* Termômetro das Emoções */
-    .emotions-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      gap: 12px;
-      margin-bottom: 1.2rem;
-    }
-
-    .btn-emotion {
-      background: #FFFFFF;
+    /* Imagem em Destaque */
+    .hero-image {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 20px;
+      margin-bottom: 1.5rem;
       border: 2px solid var(--border-color);
-      border-radius: 16px;
-      padding: 12px 10px;
-      cursor: pointer;
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--text-color);
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
     }
 
-    .btn-emotion:hover {
-      border-color: var(--lime-accent);
-      background: var(--lime-light);
-      transform: scale(1.03);
-    }
-
-    .suggestion-box {
-      background: var(--lime-light);
-      border: 2px solid var(--lime-accent);
-      color: var(--text-color);
-      padding: 1.2rem;
-      border-radius: 18px;
-      display: none;
-      animation: fadeIn 0.3s ease;
-      font-size: 1.05rem;
-    }
-
-    /* Rastreador de Ansiedade */
-    .tracker-input {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+    /* Formulários e Botões */
+    .form-group {
       margin-bottom: 1.2rem;
     }
 
     label {
+      display: block;
       font-weight: 700;
-      color: var(--sage-dark);
-      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
     }
 
-    input[type="range"] {
+    textarea, input[type="text"] {
       width: 100%;
-      height: 10px;
-      border-radius: 5px;
-      background: var(--sage-light);
+      padding: 12px;
+      border-radius: 16px;
+      border: 2px solid var(--border-color);
+      background: var(--card-bg);
+      color: var(--text-color);
+      font-size: 1rem;
       outline: none;
-      accent-color: var(--lime-accent);
-      cursor: pointer;
+    }
+
+    textarea:focus, input[type="text"]:focus {
+      border-color: var(--sage-primary);
     }
 
     .btn-action {
       background: var(--lime-accent);
       color: #FFFFFF;
       border: none;
-      padding: 12px 22px;
+      padding: 12px 24px;
       border-radius: 16px;
       cursor: pointer;
       font-weight: 800;
       font-size: 1rem;
       transition: all 0.2s ease;
       box-shadow: 0 4px 10px rgba(136, 192, 87, 0.3);
-      align-self: flex-start;
+      display: inline-block;
+      text-decoration: none;
     }
 
     .btn-action:hover {
       background: var(--lime-hover);
-      transform: translateY(-1px);
-    }
-
-    /* Espaço Desconecta (Exercício 4-7-8) */
-    .breathing-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .breathing-circle {
-      width: 140px;
-      height: 140px;
-      background: linear-gradient(135deg, var(--sage-primary), var(--sage-dark));
-      border: 4px solid var(--lime-accent);
-      border-radius: 50%;
-      margin: 25px auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #FFFFFF;
-      font-weight: 800;
-      font-size: 1.1rem;
-      text-align: center;
-      padding: 10px;
-      box-shadow: 0 8px 20px rgba(115, 138, 110, 0.25);
-      transition: transform 4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .inhale { transform: scale(1.45); }
-    .hold { transform: scale(1.45); }
-    .exhale { transform: scale(1); }
-
-    /* Canal Direto de Apoio */
-    .support-card-content {
-      background: var(--sage-light);
-      border-radius: 18px;
-      padding: 1.2rem;
-      margin-top: 1rem;
-    }
-
-    .support-btn {
-      display: inline-block;
-      background: var(--lime-accent);
-      color: #FFFFFF;
-      text-decoration: none;
-      padding: 14px 24px;
-      border-radius: 16px;
-      font-weight: 800;
-      margin-top: 1.2rem;
-      transition: all 0.2s ease;
-      box-shadow: 0 4px 12px rgba(136, 192, 87, 0.35);
-    }
-
-    .support-btn:hover {
-      background: var(--lime-hover);
       transform: translateY(-2px);
     }
 
+    .message-box {
+      background: var(--lime-light);
+      border: 2px solid var(--lime-accent);
+      padding: 1.2rem;
+      border-radius: 18px;
+      margin-top: 1.2rem;
+      display: none;
+    }
+
+    /* Quiz Interativo */
+    .quiz-question {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .quiz-question p {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .quiz-options label {
+      display: block;
+      font-weight: 600;
+      background: var(--bg-page);
+      padding: 10px 14px;
+      border-radius: 12px;
+      margin-bottom: 6px;
+      cursor: pointer;
+      border: 1px solid var(--border-color);
+    }
+
+    .quiz-options label:hover {
+      border-color: var(--lime-accent);
+    }
+
+    /* Lista de Referências */
+    .ref-list {
+      list-style-type: none;
+    }
+
+    .ref-list li {
+      margin-bottom: 1rem;
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    .ref-list li::before {
+      content: "•";
+      color: var(--lime-accent);
+      font-weight: bold;
+      font-size: 1.5rem;
+      position: absolute;
+      left: 0;
+      top: -0.2rem;
+    }
+
+    .ref-list a {
+      color: var(--sage-primary);
+      text-decoration: underline;
+      font-weight: 700;
+    }
+
+    /* Botão Voltar ao Topo */
+    #btnTop {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: var(--sage-primary);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: all 0.2s;
+    }
+
+    #btnTop:hover {
+      background: var(--sage-dark);
+      transform: scale(1.1);
+    }
+
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(5px); }
+      from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Colégio Visconde - Espaço Saúde Mental</h1>
-    <p>Seu espaço de apoio, acolhimento e foco nos estudos.</p>
-  </header>
-
-  <div class="container">
-
-    <!-- Termômetro das Emoções -->
-    <section class="card">
-      <h2>🌡️ Termômetro das Emoções (Check-in Diário)</h2>
-      <p class="desc">Como você está se sentindo hoje ao entrar no site?</p>
-      <div class="emotions-grid">
-        <button class="btn-emotion" onclick="showSuggestion('ansioso')">😰 Ansioso</button>
-        <button class="btn-emotion" onclick="showSuggestion('cansado')">😴 Cansado</button>
-        <button class="btn-emotion" onclick="showSuggestion('motivado')">🚀 Motivado</button>
-        <button class="btn-emotion" onclick="showSuggestion('sobrecarregado')">🤯 Sobrecarregado</button>
-      </div>
-      <div id="suggestionBox" class="suggestion-box"></div>
-    </section>
-
-    <!-- Protótipo: Rastreador de Ansiedade -->
-    <section class="card">
-      <h2>📊 Protótipo: Rastreador de Ansiedade e Estratégia</h2>
-      <p class="desc">Ajuste a barra para indicar seu nível de estresse no momento:</p>
-      <div class="tracker-input">
-        <label for="anxietyLevel">Nível de ansiedade agora: <span id="levelDisplay" style="color: var(--sage-dark); font-size: 1.2rem;">5</span> / 10</label>
-        <input type="range" id="anxietyLevel" min="1" max="10" value="5" oninput="updateLevel(this.value)">
-        <button class="btn-action" onclick="analyzeAnxiety()">Ver Estratégia Recomendada</button>
-      </div>
-      <div id="trackerResult" class="suggestion-box"></div>
-    </section>
-
-    <!-- Espaço Desconecta -->
-    <section class="card breathing-container">
-      <h2>🌿 Espaço "Desconecta" (Exercício de Respiração)</h2>
-      <p class="desc">Respire fundo para aliviar a tensão das provas e desacelerar.</p>
-      <div id="breathCircle" class="breathing-circle">Pronto?</div>
-      <button class="btn-action" style="align-self: center;" onclick="startBreathing()">Iniciar Respiração (4-7-8)</button>
-    </section>
-
-    <!-- Canal Direto de Apoio -->
-    <section class="card">
-      <h2>🤝 Canal Direto de Apoio</h2>
-      <p class="desc">Precisa conversar? A equipe do Colégio Visconde e os serviços de apoio estão à disposição.</p>
-      <div class="support-card-content">
-        <p><strong>Orientação Educacional Visconde:</strong> Sala 12 - Prédio B (Segunda a Sexta, das 8h às 17h)</p>
-      </div>
-      <a href="tel:188" class="support-btn">📞 Ligar para o CVV (188) - Gratuito 24h</a>
-    </section>
-
+  <!-- Barra de Ferramentas de Acessibilidade -->
+  <div class="accessibility-bar">
+    <button class="accessibility-btn" onclick="toggleDarkMode()">🌓 Modo Escuro</button>
+    <button class="accessibility-btn" onclick="toggleContrast()">👁️ Alto Contraste</button>
+    <button class="accessibility-btn" onclick="changeFontSize(1)">A+</button>
+    <button class="accessibility-btn" onclick="changeFontSize(-1)">A-</button>
   </div>
 
+  <header>
+    <h1>Portal de Apoio ao Estudante</h1>
+    <p>Colégio Visconde — Espaço Acolhedor de Saúde Emocional</p>
+    
+    <!-- Menu de Navegação Funcional -->
+    <nav>
+      <a href="#home" class="nav-link active" onclick="navigate('home', this)">Página Inicial</a>
+      <a href="#escuta" class="nav-link" onclick="navigate('escuta', this)">Portal de Escuta</a>
+      <a href="#quiz" class="nav-link" onclick="navigate('quiz', this)">Quiz Interativo</a>
+      <a href="#referencias" class="nav-link" onclick="navigate('referencias', this)">Referências</a>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <!-- 1. PÁGINA INICIAL -->
+    <section id="home" class="page-section active-page">
+      <article class="card">
+        <!-- Imagem de Destaque -->
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1000&q=80" alt="Estudantes conversando em grupo em um ambiente tranquilo" class="hero-image">
+        
+        <h2>Bem-vindo ao Portal de Apoio ao Estudante</h2>
+        <p>Aqui você encontrará informações, orientações e apoio sobre situações vivenciadas no ambiente escolar.</p>
+        <p style="margin-top: 1rem;">Nosso objetivo é fortalecer o respeito, a empatia e o bem-estar de toda a comunidade do Colégio Visconde. A saúde emocional é fundamental para o seu aprendizado e para a sua vida. Lembre-se: você nunca está sozinho!</p>
+      </article>
+
+      <article class="card">
+        <h2>O que você encontrará aqui?</h2>
+        <p>Explore nossas seções interativas pelo menu superior para acessar o <strong>Portal de Escuta</strong>, testar seus conhecimentos em nosso <strong>Quiz Interativo</strong> ou consultar instituições e fontes seguras de ajuda.</p>
+      </article>
+    </section>
+
+    <!-- 2. PORTAL DE ESCUTA -->
+    <section id="escuta" class="page-section">
+      <article class="card">
+        <h2>Portal de Escuta</h2>
+        <p style="margin-bottom: 1.2rem;">Este é um espaço seguro para você expressar o que está sentindo. O formulário abaixo é apenas uma <strong>simulação</strong> e nenhuma informação será gravada ou enviada.</p>
+        
+        <form id="formEscuta" onsubmit="enviarDesabafo(event)">
+          <div class="form-group">
+            <label for="desabafo">Escreva aqui o seu desabafo ou pensamento:</label>
+            <textarea id="desabafo" rows="5" placeholder="Como foi o seu dia? O que tem preocupado você?..." required></textarea>
+          </div>
+          <button type="submit" class="btn-action">Enviar Desabafo (Simulação)</button>
+        </form>
+
+        <div id="respostaEscuta" class="message-box"></div>
+      </article>
+
+      <article class="card">
+        <h2>Orientação e Canais de Ajuda</h2>
+        <p>Quando passar por um momento difícil ou de muita ansiedade, lembre-se de procurar auxílio com adultos de confiança:</p>
+        <ul style="margin: 1rem 0 1rem 1.5rem;">
+          <li>Professores, Pedagogos e Orientadores da escola;</li>
+          <li>Direção e equipe escolar;</li>
+          <li>Familiares e responsáveis.</li>
+        </ul>
+        <div style="background: var(--sage-light); padding: 1.2rem; border-radius: 16px; margin-top: 1rem;">
+          <p><strong>Atendimento Gratuito Externa:</strong> Centro de Valorização da Vida (CVV)</p>
+          <p>Ligue <strong>188</strong> (Disponível 24h, gratuito e confidencial) ou acesse <a href="https://www.cvv.org.br" target="_blank" rel="noopener" style="color: var(--sage-dark); font-weight:700;">cvv.org.br</a>.</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- 3. QUIZ INTERATIVO -->
+    <section id="quiz" class="page-section">
+      <article class="card">
+        <h2>Quiz Interativo: Saúde Emocional e Convivência</h2>
+        <p style="margin-bottom: 1.5rem;">Responda às 5 perguntas abaixo para testar seus conhecimentos sobre empatia e bem-estar no colégio.</p>
+        
+        <form id="quizForm">
+          
+          <div class="quiz-question">
+            <p>1. Um colega parece isolado e triste no intervalo. Qual atitude demonstra empatia?</p>
+            <div class="quiz-options">
+              <label><input type="radio" name="q1" value="a"> Ignorar, pois pode ser algo pessoal.</label>
+              <label><input type="radio" name="q1" value="b"> Aproximar-se gentilmente e perguntar se ele gostaria de companhia.</label>
+              <label><input type="radio" name="q1" value="c"> Fazer piada para tentar animá-lo à força.</label>
+            </div>
+          </div>
+
+          <div class="quiz-question">
+            <p>2. O que fazer ao sentir forte ansiedade antes de uma prova importante?</p>
+            <div class="quiz-options">
+              <label><input type="radio" name="q2" value="a"> Fazer uma pausa para praticar uma respiração profunda e focar no presente.</label>
+              <label><input type="radio" name="q2" value="b"> Estudar sem parar até o último segundo sem beber água.</label>
+              <label><input type="radio" name="q2" value="c"> Guardar o sentimento para si e não conversar com ninguém.</label>
+            </div>
+          </div>
+
+          <div class="quiz-question">
+            <p>3. Como agir caso você presencie alguém sofrendo com comentários maldosos na escola?</p>
+            <div class="quiz-options">
+              <label><input type="radio" name="q3" value="a"> Rir junto para não virar o próximo alvo.</label>
+              <label><input type="radio" name="q3" value="b"> Apoiar a vítima e avisar um professor ou orientador.</label>
+              <label><input type="radio" name="q3" value="c"> Gravar um vídeo e compartilhar com outros colegas.</label>
+            </div>
+          </div>
+
+          <div class="quiz-question">
+            <p>4. Ter momentos de descanso entre as rotinas de estudo é:</p>
+            <div class="quiz-options">
+              <label><input type="radio" name="q4" value="a"> Perda de tempo que atrapalha as notas.</label>
+              <label><input type="radio" name="q4" value="b"> Uma prática essencial para manter a saúde mental e o foco.</label>
+              <label><input type="radio" name="q4" value="c"> Necessário apenas nas férias escolares.</label>
+            </div>
+          </div>
+
+          <div class="quiz-question">
+            <p>5. Se você precisar de ajuda emocional, quem pode ser um canal seguro de apoio?</p>
+            <div class="quiz-options">
+              <label><input type="radio" name="q5" value="a"> Apenas fóruns anônimos na internet.</label>
+              <label><input type="radio" name="q5" value="b"> Professores, equipe pedagógica, familiares ou o CVV (188).</label>
+              <label><input type="radio" name="q5" value="c"> Ninguém, é melhor resolver tudo sozinho.</label>
+            </div>
+          </div>
+
+          <button type="button" class="btn-action" onclick="calcularQuiz()">Finalizar Quiz</button>
+        </form>
+
+        <div id="resultadoQuiz" class="message-box"></div>
+      </article>
+    </section>
+
+    <!-- 4. PÁGINA DE REFERÊNCIAS -->
+    <section id="referencias" class="page-section">
+      <article class="card">
+        <h2>Página de Referências</h2>
+        <p style="margin-bottom: 1.2rem;">Este portal utiliza informações confiáveis com base em fontes institucionais e de saúde reconhecidas:</p>
+        
+        <ul class="ref-list">
+          <li>
+            <strong>Ministério da Saúde (Brasil):</strong> Materiais e diretrizes sobre Saúde Mental na Adolescência. 
+            <br><a href="https://www.gov.br/saude" target="_blank" rel="noopener">gov.br/saude</a>
+          </li>
+          <li>
+            <strong>Organização Mundial da Saúde (OMS):</strong> Guias de saúde emocional e prevenção ao estresse para jovens. 
+            <br><a href="https://www.who.int" target="_blank" rel="noopener">who.int</a>
+          </li>
+          <li>
+            <strong>Centro de Valorização da Vida (CVV):</strong> Apoio emocional e prevenção do suicídio. 
+            <br><a href="https://www.cvv.org.br" target="_blank" rel="noopener">cvv.org.br</a>
+          </li>
+          <li>
+            <strong>UNICEF Brasil:</strong> Cartilhas de apoio psicológico e promoção de ambientes escolares seguros. 
+            <br><a href="https://www.unicef.org/brazil" target="_blank" rel="noopener">unicef.org/brazil</a>
+          </li>
+        </ul>
+      </article>
+    </section>
+
+  </main>
+
+  <!-- Botão Voltar ao Topo -->
+  <button id="btnTop" onclick="scrollToTop()" title="Voltar ao topo">↑</button>
+
   <script>
-    // Termômetro das Emoções
-    function showSuggestion(emotion) {
-      const box = document.getElementById('suggestionBox');
-      box.style.display = 'block';
+    // Navegação Simples entre Seções
+    function navigate(sectionId, element) {
+      document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active-page'));
+      document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
       
-      const suggestions = {
-        ansioso: "<strong>Sugestão Prática:</strong> Faça uma pausa rápida e experimente o exercício de respiração no <em>Espaço Desconecta</em> abaixo.",
-        cansado: "<strong>Sugestão Prática:</strong> Lembre-se de se hidratar e lavar o rosto. Que tal um intervalo ativador de 15 minutos sem telas?",
-        motivado: "<strong>Sugestão Prática:</strong> Aproveite esse pico de foco! Confira o <em>Guia Anti-Perrengue</em> para organizar suas metas principais do dia.",
-        sobrecarregado: "<strong>Sugestão Prática:</strong> Desacelere. Foque em apenas uma tarefa por vez utilizando a técnica Pomodoro (25 min de foco / 5 min de descanso)."
-      };
-
-      box.innerHTML = suggestions[emotion] || "";
+      document.getElementById(sectionId).classList.add('active-page');
+      element.classList.add('active');
     }
 
-    // Rastreador de Ansiedade
-    function updateLevel(val) {
-      document.getElementById('levelDisplay').innerText = val;
+    // Formulário do Portal de Escuta (Simulação)
+    function enviarDesabafo(event) {
+      event.preventDefault();
+      const respostaBox = document.getElementById('respostaEscuta');
+      const frases = [
+        "Sua voz importa! Lembre-se de que você é mais forte do que imagina.",
+        "Respire fundo. Dar um passo de cada vez é a melhor forma de seguir em frente.",
+        "Obrigado por compartilhar. Procurar apoio é um ato de coragem!",
+        "Tudo passa. Cuide de você com o mesmo carinho que dedica aos seus amigos."
+      ];
+      
+      const fraseAleatoria = frases[Math.floor(Math.random() * frases.length)];
+
+      respostaBox.style.display = 'block';
+      respostaBox.innerHTML = `
+        <p><strong>Mensagem Enviada com Sucesso! (Simulação)</strong></p>
+        <p style="margin-top:0.5rem;"><em>"${fraseAleatoria}"</em></p>
+        <p style="margin-top:0.8rem; font-size: 0.95rem;">Lembre-se: esta é uma simulação. Se precisar conversar com alguém no mundo real, procure a coordenação do colégio, seus pais ou ligue 188 (CVV).</p>
+      `;
+
+      document.getElementById('desabafo').value = '';
     }
 
-    function analyzeAnxiety() {
-      const level = parseInt(document.getElementById('anxietyLevel').value);
-      const result = document.getElementById('trackerResult');
-      result.style.display = 'block';
+    // Processamento do Quiz Interativo
+    function calcularQuiz() {
+      const respostasCorretas = { q1: 'b', q2: 'a', q3: 'b', q4: 'b', q5: 'b' };
+      let pontuacao = 0;
+      let respondidas = 0;
 
-      if (level <= 3) {
-        result.innerHTML = "<strong>Nível Baixo (1-3):</strong> Você está em um momento de calma. Ótimo momento para focar nos estudos ou compartilhar uma boa mensagem no <em>Mural do Visconde</em>.";
-      } else if (level <= 6) {
-        result.innerHTML = "<strong>Nível Moderado (4-6):</strong> Tente organizar seu estudo com cronogramas curtos e faça pausas ativas a cada bloco de tempo.";
+      for (let i = 1; i <= 5; i++) {
+        const opcao = document.querySelector(`input[name="q${i}"]:checked`);
+        if (opcao) {
+          respondidas++;
+          if (opcao.value === respostasCorretas[`q${i}`]) {
+            pontuacao++;
+          }
+        }
+      }
+
+      const resultadoBox = document.getElementById('resultadoQuiz');
+      resultadoBox.style.display = 'block';
+
+      if (respondidas < 5) {
+        resultadoBox.innerHTML = "<strong>Atenção:</strong> Por favor, responda a todas as 5 perguntas antes de finalizar.";
       } else {
-        result.innerHTML = "<strong>Nível Elevado (7-10):</strong> Interrompa os estudos por alguns minutos. Faça o exercício de respiração guiada ou procure a equipe de Orientação Educacional do colégio.";
+        resultadoBox.innerHTML = `
+          <h3>Resultado do Quiz:</h3>
+          <p style="font-size: 1.2rem; margin-top: 0.5rem;">Você acertou <strong>${pontuacao} de 5</strong> perguntas!</p>
+          <p style="margin-top:0.5rem;">${pontuacao >= 4 ? 'Excelente! Você demonstra ótimo conhecimento sobre apoio e saúde mental.' : 'Bom trabalho! Continue aprendendo e praticando a empatia no dia a dia.'}</p>
+        `;
       }
     }
 
-    // Exercício de Respiração 4-7-8
-    function startBreathing() {
-      const circle = document.getElementById('breathCircle');
-      circle.innerText = "Puxe o ar\n(4s)";
-      circle.className = "breathing-circle inhale";
+    // Funcionalidade de Acessibilidade: Ajuste de Fonte
+    let currentFontSize = 16;
+    function changeFontSize(delta) {
+      currentFontSize = Math.min(Math.max(currentFontSize + delta, 12), 22);
+      document.documentElement.style.setProperty('--font-size-base', currentFontSize + 'px');
+    }
 
-      setTimeout(() => {
-        circle.innerText = "Segure\n(7s)";
-        circle.className = "breathing-circle hold";
-      }, 4000);
+    // Alternar Modo Escuro
+    function toggleDarkMode() {
+      document.body.classList.remove('high-contrast');
+      document.body.classList.toggle('dark-mode');
+    }
 
-      setTimeout(() => {
-        circle.innerText = "Solte o ar\n(8s)";
-        circle.className = "breathing-circle exhale";
-      }, 11000);
+    // Alternar Alto Contraste
+    function toggleContrast() {
+      document.body.classList.remove('dark-mode');
+      document.body.classList.toggle('high-contrast');
+    }
 
-      setTimeout(() => {
-        circle.innerText = "Concluído!";
-      }, 19000);
+    // Botão Voltar ao Topo
+    window.onscroll = function() {
+      const btn = document.getElementById('btnTop');
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        btn.style.display = "block";
+      } else {
+        btn.style.display = "none";
+      }
+    };
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script>
 </body>
