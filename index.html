@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
   
   <style>
-    /* Variáveis da Paleta: Sálvia, Limão e Off-White */
+    /* Variáveis da Paleta: Sálvia, Limão e Bege Claro */
     :root {
       --sage-primary: #738A6E;
       --sage-dark: #586B54;
@@ -20,10 +20,10 @@
       --lime-hover: #78AC4A;
       --lime-light: #F0F7E9;
       --bg-page: #EDF1EC;
-      --card-bg: #FAF9F5;
+      --card-bg: #F5F1E6; /* Bege claro acolhedor */
       --text-color: #2D372E;
       --text-muted: #5A665B;
-      --border-color: #DCE3DA;
+      --border-color: #E2DACD;
       --font-size-base: 16px;
     }
 
@@ -154,7 +154,7 @@
       display: block;
     }
 
-    /* Cards em Off-White com Bordas Arredondadas */
+    /* Cards em Bege Claro com Bordas Arredondadas */
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -179,6 +179,24 @@
       border-radius: 20px;
       margin-bottom: 1.5rem;
       border: 2px solid var(--border-color);
+    }
+
+    /* Caixa de Frase Motivacional */
+    .quote-card {
+      background: var(--lime-light);
+      border: 2px dashed var(--lime-accent);
+      border-radius: 20px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .quote-text {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--sage-dark);
+      font-style: italic;
+      margin-bottom: 1rem;
     }
 
     /* Formulários e Botões */
@@ -356,16 +374,16 @@
   </div>
 
   <header>
-    <h1>Portal de Apoio ao Estudante</h1>
-    <p>Colégio Visconde — Seu cantinho seguro para conversar, aprender e respirar fundo.</p>
+    <h1>Portal de Apoio ao Estudante 🌿</h1>
+    <p>Colégio Visconde — Seu cantinho seguro para conversar, aprender e respirar fundo. ✨</p>
     
     <!-- Menu de Navegação Funcional -->
     <nav>
-      <a href="#home" class="nav-link active" onclick="navigate('home', this)">Página Inicial</a>
-      <a href="#mapeamento" class="nav-link" onclick="navigate('mapeamento', this)">Mapeamento Emocional</a>
-      <a href="#escuta" class="nav-link" onclick="navigate('escuta', this)">Portal de Escuta</a>
-      <a href="#quiz" class="nav-link" onclick="navigate('quiz', this)">Quiz Interativo</a>
-      <a href="#referencias" class="nav-link" onclick="navigate('referencias', this)">Referências</a>
+      <a href="#home" class="nav-link active" onclick="navigate('home', this)">🏠 Página Inicial</a>
+      <a href="#mapeamento" class="nav-link" onclick="navigate('mapeamento', this)">📊 Mapeamento Emocional</a>
+      <a href="#escuta" class="nav-link" onclick="navigate('escuta', this)">💬 Portal de Escuta</a>
+      <a href="#quiz" class="nav-link" onclick="navigate('quiz', this)">🧩 Quiz Interativo</a>
+      <a href="#referencias" class="nav-link" onclick="navigate('referencias', this)">📚 Referências</a>
     </nav>
   </header>
 
@@ -377,92 +395,103 @@
         <!-- Imagem de Destaque -->
         <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1000&q=80" alt="Estudantes conversando em grupo em um ambiente tranquilo" class="hero-image">
         
-        <h2>Que bom ter você por aqui!</h2>
-        <p>Bem-vindo ao Portal de Apoio ao Estudante. Criamos este espaço pensando com muito carinho na sua rotina, nas suas dúvidas e no seu bem-estar no Colégio Visconde.</p>
-        <p style="margin-top: 1rem;">Aqui você encontrará orientações, dicas leves para os dias mais puxados e uma rede de carinho para lembrar que você nunca precisa carregar tudo sozinho. Sinta-se em casa!</p>
+        <h2>Que bom ter você por aqui! 👋💖</h2>
+        <p>Bem-vindo ao Portal de Apoio ao Estudante! Criamos este espaço pensando com muito carinho na sua rotina, nas suas dúvidas e no seu bem-estar no Colégio Visconde. 🏫✨</p>
+        <p style="margin-top: 1rem;">Aqui você encontrará orientações, dicas leves para os dias mais puxados e uma rede de carinho para lembrar que você nunca precisa carregar tudo sozinho. Sinta-se em casa! ☕🍃</p>
+      </article>
+
+      <!-- Espaço de Frases Motivacionais -->
+      <article class="card">
+        <h2>Gotinha de Inspiração do Dia 🌟💡</h2>
+        <p>Precisa de um incentivo para continuar a rotina com o coração leve? Clique no botão abaixo para receber um recadinho especial!</p>
+        
+        <div class="quote-card">
+          <p id="quoteDisplay" class="quote-text">"Você é muito mais forte do que imagina e cada pequeno passo na sua jornada conta! 🌈✨"</p>
+          <button type="button" class="btn-action" onclick="gerarFrase()">Sorteie uma Frase 🎲</button>
+        </div>
       </article>
 
       <article class="card">
-        <h2>Como podemos te ajudar hoje?</h2>
-        <p>Sinta-se à vontade para navegar pelo menu acima. Você pode fazer uma autoavaliação no <strong>Mapeamento Emocional</strong>, desabafar de forma anônima no <strong>Portal de Escuta</strong>, testar seus conhecimentos no <strong>Quiz Interativo</strong> ou conhecer fontes de ajuda na aba de <strong>Referências</strong>.</p>
+        <h2>Como podemos te ajudar hoje? 🤔💭</h2>
+        <p>Sinta-se à vontade para navegar pelo menu acima. Você pode fazer uma autoavaliação no <strong>Mapeamento Emocional</strong> 📊, desabafar de forma anônima no <strong>Portal de Escuta</strong> 💬, testar seus conhecimentos no <strong>Quiz Interativo</strong> 🧩 ou conhecer fontes de ajuda na aba de <strong>Referências</strong> 📚.</p>
       </article>
     </section>
 
     <!-- 2. MAPEAMENTO EMOCIONAL E SINAIS DE ALERTA -->
     <section id="mapeamento" class="page-section">
       <article class="card">
-        <h2>Mapeamento de Sinais de Alerta 🌿</h2>
-        <p style="margin-bottom: 1rem;">Muitas vezes, a correria dos estudos faz com que a gente não pare para perceber como o nosso corpo e a nossa mente estão reagindo. Marque os itens abaixo que você tem sentido com frequência nas últimas semanas:</p>
+        <h2>Mapeamento de Sinais de Alerta 📊🌿</h2>
+        <p style="margin-bottom: 1rem;">Muitas vezes, a correria dos estudos faz com que a gente não pare para perceber como o nosso corpo e a nossa mente estão reagindo. Marque os itens abaixo que você tem sentido com frequência nas últimas semanas: 🧠👇</p>
         
         <form id="formMapeamento" onsubmit="analisarMapeamento(event)">
           <div class="checklist-group">
             <label class="checklist-item">
               <input type="checkbox" name="sinal" value="1">
-              <span>Dificuldade frequente para dormir ou cansaço constante ao acordar.</span>
+              <span>Dificuldade frequente para dormir ou cansaço constante ao acordar. 😴⚡</span>
             </label>
             <label class="checklist-item">
               <input type="checkbox" name="sinal" value="2">
-              <span>Sensação de sobrecarga constante com as tarefas escolares ou rotina.</span>
+              <span>Sensação de sobrecarga constante com as tarefas escolares ou rotina. 📚🌀</span>
             </label>
             <label class="checklist-item">
               <input type="checkbox" name="sinal" value="3">
-              <span>Vontade de se afastar dos amigos ou familiares na maior parte do tempo.</span>
+              <span>Vontade de se afastar dos amigos ou familiares na maior parte do tempo. 🛋️🚪</span>
             </label>
             <label class="checklist-item">
               <input type="checkbox" name="sinal" value="4">
-              <span>Alterações frequentes no apetite ou dores no corpo sem causa física evidente.</span>
+              <span>Alterações frequentes no apetite ou dores no corpo sem causa física evidente. 🍎🩹</span>
             </label>
             <label class="checklist-item">
               <input type="checkbox" name="sinal" value="5">
-              <span>Dificuldade para focar nas aulas ou perda de interesse em atividades de que gostava.</span>
+              <span>Dificuldade para focar nas aulas ou perda de interesse em atividades de que gostava. 🧩🔍</span>
             </label>
             <label class="checklist-item">
               <input type="checkbox" name="sinal" value="6">
-              <span>Sentimento de ansiedade, inquietação ou preocupação excessiva na maior parte dos dias.</span>
+              <span>Sentimento de ansiedade, inquietação ou preocupação excessiva na maior parte dos dias. 💭🌊</span>
             </label>
           </div>
 
-          <button type="submit" class="btn-action">Ver Orientação</button>
+          <button type="submit" class="btn-action">Ver Orientação 📋✨</button>
         </form>
 
         <div id="resultadoMapeamento" class="message-box"></div>
       </article>
 
       <article class="card">
-        <h2>Importante lembrar 💡</h2>
-        <p>Esta ferramenta é um guia de autoconhecimento e <strong>não substitui a consulta com profissionais de saúde</strong> (como psicólogos, médicos ou neurologistas).</p>
-        <p style="margin-top: 0.8rem;">Se você notar que os sinais persistem e atrapalham seu dia a dia, procurar a orientação pedagógica da escola, conversar com seus pais ou buscar atendimento profissional é o caminho mais seguro e acolhedor.</p>
+        <h2>Importante lembrar 💡🤝</h2>
+        <p>Esta ferramenta é um guia de autoconhecimento e <strong>não substitui a consulta com profissionais de saúde</strong> (como psicólogos, médicos ou neurologistas). 🩺👩‍⚕️</p>
+        <p style="margin-top: 0.8rem;">Se você notar que os sinais persistem e atrapalham seu dia a dia, procurar a orientação pedagógica da escola, conversar com seus pais ou buscar atendimento profissional é o caminho mais seguro e acolhedor. ❤️💛</p>
       </article>
     </section>
 
     <!-- 3. PORTAL DE ESCUTA -->
     <section id="escuta" class="page-section">
       <article class="card">
-        <h2>Portal de Escuta 💬</h2>
-        <p style="margin-bottom: 1.2rem;">Às vezes, colocar para fora o que sentimos já ajuda a aliviar o peito. Este espaço foi feito para você escrever livremente. Como esta é apenas uma <strong>simulação</strong>, nenhuma palavra digitada aqui será salva ou enviada para nenhum lugar.</p>
+        <h2>Portal de Escuta 💬🕊️</h2>
+        <p style="margin-bottom: 1.2rem;">Às vezes, colocar para fora o que sentimos já ajuda a aliviar o peito. Este espaço foi feito para você escrever livremente. Como esta é apenas uma <strong>simulação</strong>, nenhuma palavra digitada aqui será salva ou enviada para nenhum lugar. 🔒✨</p>
         
         <form id="formEscuta" onsubmit="enviarDesabafo(event)">
           <div class="form-group">
-            <label for="desabafo">O que está na sua mente agora?</label>
+            <label for="desabafo">O que está na sua mente agora? ✍️💭</label>
             <textarea id="desabafo" rows="5" placeholder="Conta para a gente: como foi o seu dia? O que tem deixado o seu coração pesado?..." required></textarea>
           </div>
-          <button type="submit" class="btn-action">Enviar Desabafo (Simulação)</button>
+          <button type="submit" class="btn-action">Enviar Desabafo (Simulação) 💌</button>
         </form>
 
         <div id="respostaEscuta" class="message-box"></div>
       </article>
 
       <article class="card">
-        <h2>Estamos sempre por perto 🤝</h2>
-        <p>Quando as coisas parecerem complicadas demais para resolver por conta própria, lembre-se de que conversar com alguém de confiança faz toda a diferença no mundo:</p>
+        <h2>Estamos sempre por perto 🤝❤️</h2>
+        <p>Quando as coisas parecerem complicadas demais para resolver por conta própria, lembre-se de que conversar com alguém de confiança faz toda a diferença no mundo: 🌱✨</p>
         <ul style="margin: 1rem 0 1rem 1.5rem;">
-          <li>Professores e Orientadores do colégio (que estão sempre prontos para te ouvir sem julgar);</li>
-          <li>A equipe pedagógica e a direção;</li>
-          <li>Seus pais, responsáveis ou um familiar querido.</li>
+          <li>Professores e Orientadores do colégio (que estão sempre prontos para te ouvir sem julgar); 👩‍🏫👨‍🏫</li>
+          <li>A equipe pedagógica e a direção; 🏫📋</li>
+          <li>Seus pais, responsáveis ou um familiar querido. 🏠❤️</li>
         </ul>
         <div style="background: var(--sage-light); padding: 1.2rem; border-radius: 16px; margin-top: 1rem;">
-          <p><strong>Apoio Gratuito e Amigo:</strong> Centro de Valorização da Vida (CVV)</p>
-          <p>Se quiser conversar com alguém de fora a qualquer hora do dia ou da noite, ligue para <strong>188</strong> (ligação gratuita e anônima) ou acesse <a href="https://www.cvv.org.br" target="_blank" rel="noopener" style="color: var(--sage-dark); font-weight:700;">cvv.org.br</a>.</p>
+          <p><strong>Apoio Gratuito e Amigo:</strong> Centro de Valorização da Vida (CVV) 📞💛</p>
+          <p>Se quiser conversar com alguém de fora a qualquer hora do dia ou da noite, ligue para <strong>188</strong> (ligação gratuita e anônima) ou acesse <a href="https://www.cvv.org.br" target="_blank" rel="noopener" style="color: var(--sage-dark); font-weight:700;">cvv.org.br</a>. 🌐✨</p>
         </div>
       </article>
     </section>
@@ -470,57 +499,57 @@
     <!-- 4. QUIZ INTERATIVO -->
     <section id="quiz" class="page-section">
       <article class="card">
-        <h2>Quiz: Cuidando de Você e dos Colegas 🌱</h2>
-        <p style="margin-bottom: 1.5rem;">Responda às 5 perguntinhas abaixo para descobrir como pequenas atitudes de empatia e cuidado podem transformar a nossa convivência no colégio.</p>
+        <h2>Quiz: Cuidando de Você e dos Colegas 🌱🧩</h2>
+        <p style="margin-bottom: 1.5rem;">Responda às 5 perguntinhas abaixo para descobrir como pequenas atitudes de empatia e cuidado podem transformar a nossa convivência no colégio! ✨🤝</p>
         
         <form id="quizForm">
           
           <div class="quiz-question">
-            <p>1. Sabe aquele colega que costuma ficar mais no cantinho dele durante o intervalo? Qual a melhor forma de chegar junto?</p>
+            <p>1. Sabe aquele colega que costuma ficar mais no cantinho dele durante o intervalo? Qual a melhor forma de chegar junto? 🧍‍♂️💭</p>
             <div class="quiz-options">
-              <label><input type="radio" name="q1" value="a"> Deixar quieto, afinal cada um no seu quadrado.</label>
-              <label><input type="radio" name="q1" value="b"> Chegar com calma, dar um 'oi' e chamar para se juntar ao grupo se ele quiser.</label>
-              <label><input type="radio" name="q1" value="c"> Chegar fazendo zoação para ver se ele acorda.</label>
+              <label><input type="radio" name="q1" value="a"> Deixar quieto, afinal cada um no seu quadrado. 🙈</label>
+              <label><input type="radio" name="q1" value="b"> Chegar com calma, dar um 'oi' e chamar para se juntar ao grupo se ele quiser. 😊👋</label>
+              <label><input type="radio" name="q1" value="c"> Chegar fazendo zoação para ver se ele acorda. 📢</label>
             </div>
           </div>
 
           <div class="quiz-question">
-            <p>2. A semana de provas está chegando e o coração começou a acelerar mais forte. O que pode te ajudar?</p>
+            <p>2. A semana de provas está chegando e o coração começou a acelerar mais forte. O que pode te ajudar? 📖💓</p>
             <div class="quiz-options">
-              <label><input type="radio" name="q2" value="a"> Fazer uma pausa, respirar bem fundo algumas vezes e organizar os estudos por etapas.</label>
-              <label><input type="radio" name="q2" value="b"> Passar a noite inteira em claro estudando sem parar nem para comer.</label>
-              <label><input type="radio" name="q2" value="c"> Guardar tudo para você e fingir que nada está acontecendo.</label>
+              <label><input type="radio" name="q2" value="a"> Fazer uma pausa, respirar bem fundo algumas vezes e organizar os estudos por etapas. 🧘‍♀️📝</label>
+              <label><input type="radio" name="q2" value="b"> Passar a noite inteira em claro estudando sem parar nem para comer. ⏰💤</label>
+              <label><input type="radio" name="q2" value="c"> Guardar tudo para você e fingir que nada está acontecendo. 🤐</label>
             </div>
           </div>
 
           <div class="quiz-question">
-            <p>3. Se você notar que alguém está passando por uma situação chata com brincadeiras de mau gosto, como agir?</p>
+            <p>3. Se você notar que alguém está passando por uma situação chata com brincadeiras de mau gosto, como agir? 🛑🤝</p>
             <div class="quiz-options">
-              <label><input type="radio" name="q3" value="a"> Dar risada junto para não parecer o 'chato' da turma.</label>
-              <label><input type="radio" name="q3" value="b"> Mostrar que você está do lado do colega e avisar um professor ou orientador.</label>
-              <label><input type="radio" name="q3" value="c"> Pegar o celular para filmar e mandar no grupo da sala.</label>
+              <label><input type="radio" name="q3" value="a"> Dar risada junto para não parecer o 'chato' da turma. 😅</label>
+              <label><input type="radio" name="q3" value="b"> Mostrar que você está do lado do colega e avisar um professor ou orientador. 🛡️✨</label>
+              <label><input type="radio" name="q3" value="c"> Pegar o celular para filmar e mandar no grupo da sala. 📱❌</label>
             </div>
           </div>
 
           <div class="quiz-question">
-            <p>4. Separar um tempinho do dia para ouvir uma música, caminhar ou apenas descansar a mente é:</p>
+            <p>4. Separar um tempinho do dia para ouvir uma música, caminhar ou apenas descansar a mente é: 🎧🌿</p>
             <div class="quiz-options">
-              <label><input type="radio" name="q4" value="a"> Bobagem, porque o certo é estudar o tempo todo.</label>
-              <label><input type="radio" name="q4" value="b"> Parte essencial do seu cuidado diário para manter o foco e a saúde em dia.</label>
-              <label><input type="radio" name="q4" value="c"> Algo que só se faz quando as férias chegarem.</label>
+              <label><input type="radio" name="q4" value="a"> Bobagem, porque o certo é estudar o tempo todo. 🚫</label>
+              <label><input type="radio" name="q4" value="b"> Parte essencial do seu cuidado diário para manter o foco e a saúde em dia. 🔋💖</label>
+              <label><input type="radio" name="q4" value="c"> Algo que só se faz quando as férias chegarem. 🗓️</label>
             </div>
           </div>
 
           <div class="quiz-question">
-            <p>5. Quando os sentimentos ficam confusos ou o cansaço aperta, a quem você pode recorrer?</p>
+            <p>5. Quando os sentimentos ficam confusos ou o cansaço aperta, a quem você pode recorrer? 🌈🤝</p>
             <div class="quiz-options">
-              <label><input type="radio" name="q5" value="a"> Apenas a comentários de estranhos na internet.</label>
-              <label><input type="radio" name="q5" value="b"> Aos seus professores, orientação escolar, familiares ou ao CVV (188).</label>
-              <label><input type="radio" name="q5" value="c"> Ninguém, o melhor é engolir o choro e resolver sozinho.</label>
+              <label><input type="radio" name="q5" value="a"> Apenas a comentários de estranhos na internet. 🌐❓</label>
+              <label><input type="radio" name="q5" value="b"> Aos seus professores, orientação escolar, familiares ou ao CVV (188). 📞❤️</label>
+              <label><input type="radio" name="q5" value="c"> Ninguém, o melhor é engolir o choro e resolver sozinho. 🚪</label>
             </div>
           </div>
 
-          <button type="button" class="btn-action" onclick="calcularQuiz()">Ver Meu Resultado</button>
+          <button type="button" class="btn-action" onclick="calcularQuiz()">Ver Meu Resultado 🏆✨</button>
         </form>
 
         <div id="resultadoQuiz" class="message-box"></div>
@@ -530,24 +559,24 @@
     <!-- 5. PÁGINA DE REFERÊNCIAS -->
     <section id="referencias" class="page-section">
       <article class="card">
-        <h2>Fontes e Leituras Seguras 📚</h2>
-        <p style="margin-bottom: 1.2rem;">Tudo o que compartilhamos aqui foi preparado com base no trabalho de instituições que cuidam da saúde e da educação com muita seriedade e carinho:</p>
+        <h2>Fontes e Leituras Seguras 📚🔍</h2>
+        <p style="margin-bottom: 1.2rem;">Tudo o que compartilhamos aqui foi preparado com base no trabalho de instituições que cuidam da saúde e da educação com muita seriedade e carinho: 💚✨</p>
         
         <ul class="ref-list">
           <li>
-            <strong>Ministério da Saúde (Brasil):</strong> Conteúdos e dicas de cuidado com a saúde mental dos jovens. 
+            <strong>Ministério da Saúde (Brasil):</strong> Conteúdos e dicas de cuidado com a saúde mental dos jovens. 🇧🇷🏥
             <br><a href="https://www.gov.br/saude" target="_blank" rel="noopener">gov.br/saude</a>
           </li>
           <li>
-            <strong>Organização Mundial da Saúde (OMS):</strong> Recomendações para o bem-estar e equilíbrio na juventude. 
+            <strong>Organização Mundial da Saúde (OMS):</strong> Recomendações para o bem-estar e equilíbrio na juventude. 🌐🌿
             <br><a href="https://www.who.int" target="_blank" rel="noopener">who.int</a>
           </li>
           <li>
-            <strong>Centro de Valorização da Vida (CVV):</strong> Apoio fraterno e acolhimento em momentos difíceis. 
+            <strong>Centro de Valorização da Vida (CVV):</strong> Apoio fraterno e acolhimento em momentos difíceis. 📞💛
             <br><a href="https://www.cvv.org.br" target="_blank" rel="noopener">cvv.org.br</a>
           </li>
           <li>
-            <strong>UNICEF Brasil:</strong> Projetos e materiais focados no respeito e na proteção de crianças e adolescentes. 
+            <strong>UNICEF Brasil:</strong> Projetos e materiais focados no respeito e na proteção de crianças e adolescentes. 🕊️✨
             <br><a href="https://www.unicef.org/brazil" target="_blank" rel="noopener">unicef.org/brazil</a>
           </li>
         </ul>
@@ -569,6 +598,22 @@
       element.classList.add('active');
     }
 
+    // Gerador de Frases Motivacionais
+    const frasesMotivacionais = [
+      "Você é muito mais forte do que imagina e cada pequeno passo na sua jornada conta! 🌈✨",
+      "Não se cobre tanto. Respire fundo e lembre-se de que cada dia traz uma nova oportunidade! 🍃☀️",
+      "Sua caminhada é única. Respeite o seu tempo e comemore cada pequena vitória! 🎉💖",
+      "Pedir ajuda não é sinal de fraqueza, mas sim um passo gigante de coragem! 🤝🌟",
+      "Nenhuma tempestade dura para sempre. Dias mais iluminados estão a caminho! 🌤️🌸",
+      "Cuide do seu corpo e da sua mente com o mesmo carinho que você dedica aos seus melhores amigos! ☕🌿"
+    ];
+
+    function gerarFrase() {
+      const display = document.getElementById('quoteDisplay');
+      const fraseAleatoria = frasesMotivacionais[Math.floor(Math.random() * frasesMotivacionais.length)];
+      display.innerText = `"${fraseAleatoria}"`;
+    }
+
     // Processamento do Mapeamento Emocional
     function analisarMapeamento(event) {
       event.preventDefault();
@@ -579,18 +624,18 @@
 
       if (checados === 0) {
         resultadoBox.innerHTML = `
-          <p><strong>Que bom!</strong> Você não marcou nenhum sinal de sobrecarga no momento.</p>
-          <p style="margin-top:0.5rem; font-size: 0.95rem;">Mantenha seus hábitos de descanso, estudos e lazer equilibrados. Se precisar de algo, o portal continua aqui para você.</p>
+          <p><strong>Que bom! ✨</strong> Você não marcou nenhum sinal de sobrecarga no momento.</p>
+          <p style="margin-top:0.5rem; font-size: 0.95rem;">Mantenha seus hábitos de descanso, estudos e lazer equilibrados. Se precisar de algo, o portal continua aqui para você! 🍃💖</p>
         `;
       } else if (checados <= 2) {
         resultadoBox.innerHTML = `
-          <p><strong>Atenção Leve:</strong> Você marcou ${checados} sinal(is) de desgaste.</p>
-          <p style="margin-top:0.5rem; font-size: 0.95rem;">É comum passar por dias de maior cansaço ou preocupação com provas. Tente incluir momentos de pausa na sua rotina e conversar com amigos ou familiares sobre como se sente.</p>
+          <p><strong>Atenção Leve: 🌿</strong> Você marcou ${checados} sinal(is) de desgaste.</p>
+          <p style="margin-top:0.5rem; font-size: 0.95rem;">É comum passar por dias de maior cansaço ou preocupação com provas. Tente incluir momentos de pausa na sua rotina e conversar com amigos ou familiares sobre como se sente. ☕✨</p>
         `;
       } else {
         resultadoBox.innerHTML = `
-          <p><strong>Sinal de Atenção:</strong> Você identificou ${checados} sinais de desconforto emocional ou físico.</p>
-          <p style="margin-top:0.5rem; font-size: 0.95rem;">Quando vários desses sinais aparecem ao mesmo tempo, vale a pena pedir apoio. Conversar com a orientação pedagógica da escola, com seus pais ou agendar uma avaliação com profissionais de saúde (como psicólogos ou médicos) pode te ajudar a recuperar o equilíbrio e o bem-estar.</p>
+          <p><strong>Sinal de Atenção: 💛</strong> Você identificou ${checados} sinais de desconforto emocional ou físico.</p>
+          <p style="margin-top:0.5rem; font-size: 0.95rem;">Quando vários desses sinais aparecem ao mesmo tempo, vale a pena pedir apoio. Conversar com a orientação pedagógica da escola, com seus pais ou agendar uma avaliação com profissionais de saúde (como psicólogos ou médicos) pode te ajudar a recuperar o equilíbrio e o bem-estar. 🤝🩺✨</p>
         `;
       }
     }
@@ -600,19 +645,19 @@
       event.preventDefault();
       const respostaBox = document.getElementById('respostaEscuta');
       const frases = [
-        "Obrigado por confiar e colocar isso para fora. Lembre-se: sua caminhada é única e você está se saindo muito bem!",
-        "Respire fundo. Por mais tempestuoso que o dia pareça, o sol sempre volta a brilhhar amanhã.",
-        "Sua voz e seus sentimentos importam muito. Cuide do seu coração com todo o carinho que você merece!",
-        "Pedir ajuda ou simplesmente desabafar é um sinal gigante de força. Estamos torcendo por você!"
+        "Obrigado por confiar e colocar isso para fora. Lembre-se: sua caminhada é única e você está se saindo muito bem! 💖✨",
+        "Respire fundo. Por mais tempestuoso que o dia pareça, o sol sempre volta a brilhar amanhã. 🌤️🍃",
+        "Sua voz e seus sentimentos importam muito. Cuide do seu coração com todo o carinho que você merece! 🕊️💛",
+        "Pedir ajuda ou simplesmente desabafar é um sinal gigante de força. Estamos torcendo por você! 🌟🤝"
       ];
       
       const fraseAleatoria = frases[Math.floor(Math.random() * frases.length)];
 
       respostaBox.style.display = 'block';
       respostaBox.innerHTML = `
-        <p><strong>Recebemos o seu desabafo com muito carinho! (Simulação)</strong></p>
+        <p><strong>Recebemos o seu desabafo com muito carinho! (Simulação) 💌✨</strong></p>
         <p style="margin-top:0.5rem;"><em>"${fraseAleatoria}"</em></p>
-        <p style="margin-top:0.8rem; font-size: 0.95rem;">Lembre-se: como esta é uma simulação, nenhum texto ficou gravado. Se estiver precisando de um abraço ou de uma conversa de verdade, procure a orientação do Visconde, seus pais ou ligue 188.</p>
+        <p style="margin-top:0.8rem; font-size: 0.95rem;">Lembre-se: como esta é uma simulação, nenhum texto ficou gravado. Se estiver precisando de um abraço ou de uma conversa de verdade, procure a orientação do Visconde, seus pais ou ligue 188. 📞🔒</p>
       `;
 
       document.getElementById('desabafo').value = '';
@@ -638,12 +683,12 @@
       resultadoBox.style.display = 'block';
 
       if (respondidas < 5) {
-        resultadoBox.innerHTML = "<strong>Ops!</strong> Que tal dar uma olhadinha de novo? Faltaram algumas perguntas para responder.";
+        resultadoBox.innerHTML = "<strong>Ops! 😅</strong> Que tal dar uma olhadinha de novo? Faltaram algumas perguntas para responder.";
       } else {
         resultadoBox.innerHTML = `
-          <h3>Resultado do seu Quiz:</h3>
+          <h3>Resultado do seu Quiz: 🏆✨</h3>
           <p style="font-size: 1.2rem; margin-top: 0.5rem;">Você acertou <strong>${pontuacao} de 5</strong> questões!</p>
-          <p style="margin-top:0.5rem;">${pontuacao >= 4 ? 'Que incrível! Você entende muito sobre empatia, respeito e como cuidar da sua saúde emocional.' : 'Muito bem! O importante é continuarmos aprendendo juntos a cuidar de nós mesmos e de quem está ao nosso redor.'}</p>
+          <p style="margin-top:0.5rem;">${pontuacao >= 4 ? 'Que incrível! You arrasou! Você entende muito sobre empatia, respeito e como cuidar da sua saúde emocional. 🌟💖' : 'Muito bem! O importante é continuarmos aprendendo juntos a cuidar de nós mesmos e de quem está ao nosso redor. 🍃🤝'}</p>
         `;
       }
     }
