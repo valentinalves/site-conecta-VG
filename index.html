@@ -236,6 +236,31 @@
       display: none;
     }
 
+    /* Checklist de Mapeamento Emocional */
+    .checklist-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 1.5rem;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--bg-page);
+      padding: 12px 16px;
+      border-radius: 14px;
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+    }
+
+    .checklist-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--sage-primary);
+    }
+
     /* Quiz Interativo */
     .quiz-question {
       margin-bottom: 1.5rem;
@@ -337,6 +362,7 @@
     <!-- Menu de Navegação Funcional -->
     <nav>
       <a href="#home" class="nav-link active" onclick="navigate('home', this)">Página Inicial</a>
+      <a href="#mapeamento" class="nav-link" onclick="navigate('mapeamento', this)">Mapeamento Emocional</a>
       <a href="#escuta" class="nav-link" onclick="navigate('escuta', this)">Portal de Escuta</a>
       <a href="#quiz" class="nav-link" onclick="navigate('quiz', this)">Quiz Interativo</a>
       <a href="#referencias" class="nav-link" onclick="navigate('referencias', this)">Referências</a>
@@ -358,11 +384,58 @@
 
       <article class="card">
         <h2>Como podemos te ajudar hoje?</h2>
-        <p>Sinta-se à vontade para navegar pelo menu acima. Você pode desabafar de forma anônima no <strong>Portal de Escuta</strong>, testar seus conhecimentos no nosso <strong>Quiz Interativo</strong> ou conhecer as pessoas e locais prontos para te apoiar na aba de <strong>Referências</strong>.</p>
+        <p>Sinta-se à vontade para navegar pelo menu acima. Você pode fazer uma autoavaliação no <strong>Mapeamento Emocional</strong>, desabafar de forma anônima no <strong>Portal de Escuta</strong>, testar seus conhecimentos no <strong>Quiz Interativo</strong> ou conhecer fontes de ajuda na aba de <strong>Referências</strong>.</p>
       </article>
     </section>
 
-    <!-- 2. PORTAL DE ESCUTA -->
+    <!-- 2. MAPEAMENTO EMOCIONAL E SINAIS DE ALERTA -->
+    <section id="mapeamento" class="page-section">
+      <article class="card">
+        <h2>Mapeamento de Sinais de Alerta 🌿</h2>
+        <p style="margin-bottom: 1rem;">Muitas vezes, a correria dos estudos faz com que a gente não pare para perceber como o nosso corpo e a nossa mente estão reagindo. Marque os itens abaixo que você tem sentido com frequência nas últimas semanas:</p>
+        
+        <form id="formMapeamento" onsubmit="analisarMapeamento(event)">
+          <div class="checklist-group">
+            <label class="checklist-item">
+              <input type="checkbox" name="sinal" value="1">
+              <span>Dificuldade frequente para dormir ou cansaço constante ao acordar.</span>
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox" name="sinal" value="2">
+              <span>Sensação de sobrecarga constante com as tarefas escolares ou rotina.</span>
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox" name="sinal" value="3">
+              <span>Vontade de se afastar dos amigos ou familiares na maior parte do tempo.</span>
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox" name="sinal" value="4">
+              <span>Alterações frequentes no apetite ou dores no corpo sem causa física evidente.</span>
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox" name="sinal" value="5">
+              <span>Dificuldade para focar nas aulas ou perda de interesse em atividades de que gostava.</span>
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox" name="sinal" value="6">
+              <span>Sentimento de ansiedade, inquietação ou preocupação excessiva na maior parte dos dias.</span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn-action">Ver Orientação</button>
+        </form>
+
+        <div id="resultadoMapeamento" class="message-box"></div>
+      </article>
+
+      <article class="card">
+        <h2>Importante lembrar 💡</h2>
+        <p>Esta ferramenta é um guia de autoconhecimento e <strong>não substitui a consulta com profissionais de saúde</strong> (como psicólogos, médicos ou neurologistas).</p>
+        <p style="margin-top: 0.8rem;">Se você notar que os sinais persistem e atrapalham seu dia a dia, procurar a orientação pedagógica da escola, conversar com seus pais ou buscar atendimento profissional é o caminho mais seguro e acolhedor.</p>
+      </article>
+    </section>
+
+    <!-- 3. PORTAL DE ESCUTA -->
     <section id="escuta" class="page-section">
       <article class="card">
         <h2>Portal de Escuta 💬</h2>
@@ -394,7 +467,7 @@
       </article>
     </section>
 
-    <!-- 3. QUIZ INTERATIVO -->
+    <!-- 4. QUIZ INTERATIVO -->
     <section id="quiz" class="page-section">
       <article class="card">
         <h2>Quiz: Cuidando de Você e dos Colegas 🌱</h2>
@@ -454,7 +527,7 @@
       </article>
     </section>
 
-    <!-- 4. PÁGINA DE REFERÊNCIAS -->
+    <!-- 5. PÁGINA DE REFERÊNCIAS -->
     <section id="referencias" class="page-section">
       <article class="card">
         <h2>Fontes e Leituras Seguras 📚</h2>
@@ -496,13 +569,39 @@
       element.classList.add('active');
     }
 
+    // Processamento do Mapeamento Emocional
+    function analisarMapeamento(event) {
+      event.preventDefault();
+      const checados = document.querySelectorAll('input[name="sinal"]:checked').length;
+      const resultadoBox = document.getElementById('resultadoMapeamento');
+      
+      resultadoBox.style.display = 'block';
+
+      if (checados === 0) {
+        resultadoBox.innerHTML = `
+          <p><strong>Que bom!</strong> Você não marcou nenhum sinal de sobrecarga no momento.</p>
+          <p style="margin-top:0.5rem; font-size: 0.95rem;">Mantenha seus hábitos de descanso, estudos e lazer equilibrados. Se precisar de algo, o portal continua aqui para você.</p>
+        `;
+      } else if (checados <= 2) {
+        resultadoBox.innerHTML = `
+          <p><strong>Atenção Leve:</strong> Você marcou ${checados} sinal(is) de desgaste.</p>
+          <p style="margin-top:0.5rem; font-size: 0.95rem;">É comum passar por dias de maior cansaço ou preocupação com provas. Tente incluir momentos de pausa na sua rotina e conversar com amigos ou familiares sobre como se sente.</p>
+        `;
+      } else {
+        resultadoBox.innerHTML = `
+          <p><strong>Sinal de Atenção:</strong> Você identificou ${checados} sinais de desconforto emocional ou físico.</p>
+          <p style="margin-top:0.5rem; font-size: 0.95rem;">Quando vários desses sinais aparecem ao mesmo tempo, vale a pena pedir apoio. Conversar com a orientação pedagógica da escola, com seus pais ou agendar uma avaliação com profissionais de saúde (como psicólogos ou médicos) pode te ajudar a recuperar o equilíbrio e o bem-estar.</p>
+        `;
+      }
+    }
+
     // Formulário do Portal de Escuta (Simulação Acolhedora)
     function enviarDesabafo(event) {
       event.preventDefault();
       const respostaBox = document.getElementById('respostaEscuta');
       const frases = [
         "Obrigado por confiar e colocar isso para fora. Lembre-se: sua caminhada é única e você está se saindo muito bem!",
-        "Respire fundo. Por mais tempestuoso que o dia pareça, o sol sempre volta a brilhar amanhã.",
+        "Respire fundo. Por mais tempestuoso que o dia pareça, o sol sempre volta a brilhhar amanhã.",
         "Sua voz e seus sentimentos importam muito. Cuide do seu coração com todo o carinho que você merece!",
         "Pedir ajuda ou simplesmente desabafar é um sinal gigante de força. Estamos torcendo por você!"
       ];
