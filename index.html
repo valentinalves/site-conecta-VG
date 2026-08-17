@@ -4,152 +4,241 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Espaço Saúde Mental - Colégio Visconde</title>
+  <!-- Importação da Fonte Nunito -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #4A90E2;
-      --secondary: #50E3C2;
-      --bg: #F4F7F6;
-      --card-bg: #FFFFFF;
-      --text: #333333;
-      --accent: #FF6B6B;
+      --sage-primary: #738A6E;      /* Verde Sálvia Principal */
+      --sage-dark: #586B54;         /* Verde Sálvia Escuro */
+      --sage-light: #E2E8E0;        /* Verde Sálvia Suave */
+      --lime-accent: #88C057;       /* Verde Limão Vibrante */
+      --lime-hover: #78AC4A;        /* Verde Limão Escuro para Hover */
+      --lime-light: #F0F7E9;        /* Verde Limão Claro para Destaques */
+      --bg-page: #EDF1EC;           /* Fundo da Página */
+      --card-bg: #FAF9F5;           /* Off-White para os Balões/Cards */
+      --text-color: #2D372E;        /* Texto Escuro Suave */
+      --text-muted: #5A665B;        /* Texto Secundário */
+      --border-color: #DCE3DA;      /* Borda para os Cards */
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
     body {
-      background-color: var(--bg);
-      color: var(--text);
+      background-color: var(--bg-page);
+      color: var(--text-color);
       line-height: 1.6;
-      padding-bottom: 50px;
+      padding-bottom: 60px;
     }
 
     header {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: white;
+      background: linear-gradient(135deg, var(--sage-primary), var(--sage-dark));
+      color: #FFFFFF;
       text-align: center;
-      padding: 2rem 1rem;
+      padding: 3rem 1.5rem 2.5rem 1.5rem;
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     }
 
     header h1 {
-      font-size: 2rem;
+      font-size: 2.2rem;
+      font-weight: 800;
       margin-bottom: 0.5rem;
+      letter-spacing: -0.5px;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      font-weight: 600;
+      opacity: 0.95;
     }
 
     .container {
       max-width: 900px;
-      margin: 2rem auto;
-      padding: 0 1rem;
+      margin: 2.5rem auto;
+      padding: 0 1.2rem;
     }
 
+    /* Balões / Cards em Off-White com Bordas Arredondadas */
     .card {
       background: var(--card-bg);
-      border-radius: 12px;
-      padding: 1.5rem;
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 2rem;
       margin-bottom: 2rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 8px 20px rgba(115, 138, 110, 0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(115, 138, 110, 0.12);
     }
 
     .card h2 {
-      color: var(--primary);
+      color: var(--sage-dark);
       margin-bottom: 1rem;
-      font-size: 1.4rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card p.desc {
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+      font-size: 1rem;
     }
 
     /* Termômetro das Emoções */
     .emotions-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 10px;
-      margin-bottom: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 12px;
+      margin-bottom: 1.2rem;
     }
 
     .btn-emotion {
-      background: var(--bg);
-      border: 2px solid transparent;
-      border-radius: 8px;
-      padding: 10px;
+      background: #FFFFFF;
+      border: 2px solid var(--border-color);
+      border-radius: 16px;
+      padding: 12px 10px;
       cursor: pointer;
       font-size: 1rem;
-      transition: all 0.2s;
+      font-weight: 700;
+      color: var(--text-color);
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
     }
 
     .btn-emotion:hover {
-      border-color: var(--primary);
-      background: #EBF3FA;
+      border-color: var(--lime-accent);
+      background: var(--lime-light);
+      transform: scale(1.03);
     }
 
     .suggestion-box {
-      background: #EBF3FA;
-      border-left: 4px solid var(--primary);
-      padding: 1rem;
-      border-radius: 4px;
+      background: var(--lime-light);
+      border: 2px solid var(--lime-accent);
+      color: var(--text-color);
+      padding: 1.2rem;
+      border-radius: 18px;
       display: none;
+      animation: fadeIn 0.3s ease;
+      font-size: 1.05rem;
     }
 
     /* Rastreador de Ansiedade */
     .tracker-input {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      margin-bottom: 1rem;
+      gap: 12px;
+      margin-bottom: 1.2rem;
     }
 
     label {
-      font-weight: bold;
+      font-weight: 700;
+      color: var(--sage-dark);
+      font-size: 1.05rem;
     }
 
     input[type="range"] {
       width: 100%;
+      height: 10px;
+      border-radius: 5px;
+      background: var(--sage-light);
+      outline: none;
+      accent-color: var(--lime-accent);
+      cursor: pointer;
     }
 
     .btn-action {
-      background: var(--primary);
-      color: white;
+      background: var(--lime-accent);
+      color: #FFFFFF;
       border: none;
-      padding: 10px 15px;
-      border-radius: 6px;
+      padding: 12px 22px;
+      border-radius: 16px;
       cursor: pointer;
-      font-weight: bold;
+      font-weight: 800;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 10px rgba(136, 192, 87, 0.3);
+      align-self: flex-start;
     }
 
     .btn-action:hover {
-      opacity: 0.9;
+      background: var(--lime-hover);
+      transform: translateY(-1px);
     }
 
     /* Espaço Desconecta (Exercício 4-7-8) */
+    .breathing-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
     .breathing-circle {
-      width: 120px;
-      height: 120px;
-      background: var(--secondary);
+      width: 140px;
+      height: 140px;
+      background: linear-gradient(135deg, var(--sage-primary), var(--sage-dark));
+      border: 4px solid var(--lime-accent);
       border-radius: 50%;
-      margin: 20px auto;
+      margin: 25px auto;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
-      font-weight: bold;
-      transition: transform 4s ease-in-out;
+      color: #FFFFFF;
+      font-weight: 800;
+      font-size: 1.1rem;
+      text-align: center;
+      padding: 10px;
+      box-shadow: 0 8px 20px rgba(115, 138, 110, 0.25);
+      transition: transform 4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .inhale { transform: scale(1.5); }
-    .hold { transform: scale(1.5); }
+    .inhale { transform: scale(1.45); }
+    .hold { transform: scale(1.45); }
     .exhale { transform: scale(1); }
 
     /* Canal Direto de Apoio */
+    .support-card-content {
+      background: var(--sage-light);
+      border-radius: 18px;
+      padding: 1.2rem;
+      margin-top: 1rem;
+    }
+
     .support-btn {
       display: inline-block;
-      background: var(--accent);
-      color: white;
+      background: var(--lime-accent);
+      color: #FFFFFF;
       text-decoration: none;
-      padding: 12px 20px;
-      border-radius: 6px;
-      font-weight: bold;
-      margin-top: 10px;
+      padding: 14px 24px;
+      border-radius: 16px;
+      font-weight: 800;
+      margin-top: 1.2rem;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(136, 192, 87, 0.35);
+    }
+
+    .support-btn:hover {
+      background: var(--lime-hover);
+      transform: translateY(-2px);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -164,8 +253,8 @@
 
     <!-- Termômetro das Emoções -->
     <section class="card">
-      <h2>Termômetro das Emoções (Check-in Diário)</h2>
-      <p>Como você está se sentindo hoje?</p>
+      <h2>🌡️ Termômetro das Emoções (Check-in Diário)</h2>
+      <p class="desc">Como você está se sentindo hoje ao entrar no site?</p>
       <div class="emotions-grid">
         <button class="btn-emotion" onclick="showSuggestion('ansioso')">😰 Ansioso</button>
         <button class="btn-emotion" onclick="showSuggestion('cansado')">😴 Cansado</button>
@@ -177,9 +266,10 @@
 
     <!-- Protótipo: Rastreador de Ansiedade -->
     <section class="card">
-      <h2>Protótipo: Rastreador de Ansiedade e Estratégia</h2>
+      <h2>📊 Protótipo: Rastreador de Ansiedade e Estratégia</h2>
+      <p class="desc">Ajuste a barra para indicar seu nível de estresse no momento:</p>
       <div class="tracker-input">
-        <label for="anxietyLevel">Nível de ansiedade agora: <span id="levelDisplay">5</span>/10</label>
+        <label for="anxietyLevel">Nível de ansiedade agora: <span id="levelDisplay" style="color: var(--sage-dark); font-size: 1.2rem;">5</span> / 10</label>
         <input type="range" id="anxietyLevel" min="1" max="10" value="5" oninput="updateLevel(this.value)">
         <button class="btn-action" onclick="analyzeAnxiety()">Ver Estratégia Recomendada</button>
       </div>
@@ -187,19 +277,21 @@
     </section>
 
     <!-- Espaço Desconecta -->
-    <section class="card" style="text-align: center;">
-      <h2>Espaço "Desconecta" (Exercício de Respiração)</h2>
-      <p>Respire fundo para aliviar a tensão das provas.</p>
+    <section class="card breathing-container">
+      <h2>🌿 Espaço "Desconecta" (Exercício de Respiração)</h2>
+      <p class="desc">Respire fundo para aliviar a tensão das provas e desacelerar.</p>
       <div id="breathCircle" class="breathing-circle">Pronto?</div>
-      <button class="btn-action" onclick="startBreathing()">Iniciar Respiração (4-7-8)</button>
+      <button class="btn-action" style="align-self: center;" onclick="startBreathing()">Iniciar Respiração (4-7-8)</button>
     </section>
 
     <!-- Canal Direto de Apoio -->
     <section class="card">
-      <h2>Canal Direto de Apoio</h2>
-      <p>Precisa conversar? A equipe do Colégio Visconde e serviços de apoio estão à disposição.</p>
-      <p><strong>Orientação Educacional:</strong> Sala 12 - Prédio B (Segunda a Sexta, das 8h às 17h)</p>
-      <a href="tel:188" class="support-btn">Ligar para o CVV (188) - Gratuito 24h</a>
+      <h2>🤝 Canal Direto de Apoio</h2>
+      <p class="desc">Precisa conversar? A equipe do Colégio Visconde e os serviços de apoio estão à disposição.</p>
+      <div class="support-card-content">
+        <p><strong>Orientação Educacional Visconde:</strong> Sala 12 - Prédio B (Segunda a Sexta, das 8h às 17h)</p>
+      </div>
+      <a href="tel:188" class="support-btn">📞 Ligar para o CVV (188) - Gratuito 24h</a>
     </section>
 
   </div>
@@ -211,10 +303,10 @@
       box.style.display = 'block';
       
       const suggestions = {
-        ansioso: "<strong>Sugestão:</strong> Faça uma pausa e experimente o exercício de respiração no Espaço Desconecta abaixo.",
-        cansado: "<strong>Sugestão:</strong> Lembre-se de se hidratar. Que tal um intervalo de 15 minutos sem telas?",
-        motivado: "<strong>Sugestão:</strong> Aproveite a energia! Confira o Guia Anti-Perrengue para organizar suas metas de estudo do dia.",
-        sobrecarregado: "<strong>Sugestão:</strong> Foque em apenas uma tarefa por vez com a técnica Pomodoro (25 min de foco / 5 min de descanso)."
+        ansioso: "<strong>Sugestão Prática:</strong> Faça uma pausa rápida e experimente o exercício de respiração no <em>Espaço Desconecta</em> abaixo.",
+        cansado: "<strong>Sugestão Prática:</strong> Lembre-se de se hidratar e lavar o rosto. Que tal um intervalo ativador de 15 minutos sem telas?",
+        motivado: "<strong>Sugestão Prática:</strong> Aproveite esse pico de foco! Confira o <em>Guia Anti-Perrengue</em> para organizar suas metas principais do dia.",
+        sobrecarregado: "<strong>Sugestão Prática:</strong> Desacelere. Foque em apenas uma tarefa por vez utilizando a técnica Pomodoro (25 min de foco / 5 min de descanso)."
       };
 
       box.innerHTML = suggestions[emotion] || "";
@@ -231,27 +323,27 @@
       result.style.display = 'block';
 
       if (level <= 3) {
-        result.innerHTML = "<strong>Nível Baixo:</strong> Você está em um bom momento para focar nos estudos ou ajudar um colega.";
+        result.innerHTML = "<strong>Nível Baixo (1-3):</strong> Você está em um momento de calma. Ótimo momento para focar nos estudos ou compartilhar uma boa mensagem no <em>Mural do Visconde</em>.";
       } else if (level <= 6) {
-        result.innerHTML = "<strong>Nível Moderado:</strong> Tente usar a técnica Pomodoro de estudo e faça pequenas pausas ativas.";
+        result.innerHTML = "<strong>Nível Moderado (4-6):</strong> Tente organizar seu estudo com cronogramas curtos e faça pausas ativas a cada bloco de tempo.";
       } else {
-        result.innerHTML = "<strong>Nível Elevado:</strong> Pause os estudos por alguns minutos. Faça um exercício de respiração ou procure a Orientação Educacional do colégio.";
+        result.innerHTML = "<strong>Nível Elevado (7-10):</strong> Interrompa os estudos por alguns minutos. Faça o exercício de respiração guiada ou procure a equipe de Orientação Educacional do colégio.";
       }
     }
 
     // Exercício de Respiração 4-7-8
     function startBreathing() {
       const circle = document.getElementById('breathCircle');
-      circle.innerText = "Puxe o ar (4s)";
+      circle.innerText = "Puxe o ar\n(4s)";
       circle.className = "breathing-circle inhale";
 
       setTimeout(() => {
-        circle.innerText = "Segure (7s)";
+        circle.innerText = "Segure\n(7s)";
         circle.className = "breathing-circle hold";
       }, 4000);
 
       setTimeout(() => {
-        circle.innerText = "Solte o ar (8s)";
+        circle.innerText = "Solte o ar\n(8s)";
         circle.className = "breathing-circle exhale";
       }, 11000);
 
